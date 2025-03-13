@@ -1,7 +1,7 @@
 # Descripción del Proyecto: BlueMind
 
 **Versión:** 0.1  
-**Fecha:** 18/02/2025  
+**Fecha:** 18/03/2025  
 
 ## Introducción
 BlueMind es una plataforma digital interactiva diseñada para educar y sensibilizar a distintos públicos sobre la conservación de los océanos y el acceso al agua limpia. El sitio web busca combinar información educativa con elementos interactivos que fomenten el aprendizaje y la participación ciudadana en la preservación de los recursos hídricos.
