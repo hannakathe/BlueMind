@@ -42,47 +42,46 @@ Se utilizarán herramientas como **Figma, Flutter/Dart, Google Docs y Scrum** pa
 El proyecto sigue una estructura de carpetas bien organizada para facilitar su desarrollo y mantenimiento. A continuación, se presenta una posible estructura del repositorio de código:
 
 ```
-BlueMind/
-├── frontend/                   # Código del frontend en Flutter
-│   ├── 📂 lib/                  # Carpeta principal de código fuente
-│   │   ├── 📂 assets/            # Recursos gráficos (imágenes, íconos, fuentes)
-│   │   ├── 📂 images/            # Imágenes de la aplicación
-│   ├── 📂 components/            # Componentes reutilizables de UI (botones, tarjetas, etc.)
-│   ├── 📂 pages/                 # Pantallas principales de la app
-│   │   ├── home_view.dart       # Pantalla de inicio
-│   │   ├── login_view.dart       # Pantalla de inicio de sesión
-│   │   ├── register_view.dart    # Pantalla de registro
-│   │   ├── profile_view.dart     # Pantalla de perfil de usuario
-│   │   ├── blog_view.dart       # Pantalla de blog y artículos
-│   │   ├── map_view.dart        # Mapa interactivo
-│   │   ├── reports_view.dart     # Reportes de contaminación
-│   │   ├── admin_view.dart       # Panel de administración
-│   ├── 📂 providers/             # Providers para manejo de estado (Provider/Riverpod)
-│   ├── 📂 services/              # Servicios (Auth, Firestore, API externos)
-│   ├── 📂 models/                # Definición de clases y modelos de datos
-│   ├── 📂 utils/                 # Funciones auxiliares y constantes
-│   ├── 📜 main.dart              # Archivo principal de la aplicación Flutter
-│   ├── 📜 pubspec.yaml           # Archivo de configuración de dependencias
-│   ├── 📜 routes.dart            # Definición de rutas y navegación
-│
-├── 📂 backend/                   # Backend con Firebase y/o Python (opcional)
-│   ├── 📂 firebase/               # Configuración de Firebase (Cloud Functions)
-│   ├── 📜 app.py                  # Archivo principal (si se usa Flask/FastAPI)
-│   ├── 📂 database/               # Lógica de base de datos
-│   │   ├── models/                # Modelos de Firestore o SQL
-│   │   ├── services/              # Servicios de conexión a Firestore
-│   ├── 📂 routes/                 # Endpoints de la API
+MiAppFlutter/
+├── lib/                           # Carpeta principal de código fuente
+│   ├── 📂 assets/                 # Recursos gráficos (imágenes, íconos, fuentes)
+│   ├── 📂 images/                 # Imágenes de la aplicación
+│   ├── 📂 components/             # Componentes reutilizables de UI (botones, tarjetas, etc.)
+│   ├── 📂 pages/                  # Pantallas principales de la app
+│   │   ├── home_view.dart         # Pantalla de inicio
+│   │   ├── login_view.dart        # Pantalla de inicio de sesión
+│   │   ├── register_view.dart     # Pantalla de registro
+│   │   ├── dashboard_view.dart    # Panel de usuario
+│   │   ├── profile_view.dart      # Pantalla de perfil de usuario
+│   │   ├── settings_view.dart     # Configuración de usuario
+│   │   ├── reports_view.dart      # Gestión de reportes
+│   ├── 📂 providers/              # Providers para manejo de estado (Provider/Riverpod)
+│   ├── 📂 services/               # Servicios de conexión con backend
 │   │   ├── auth_service.dart      # Lógica de autenticación
 │   │   ├── user_service.dart      # CRUD de usuarios
-│   │   ├── content_service.dart   # Gestión de contenido (blog y recursos)
-│   │   ├── report_service.dart    # Gestión de reportes de contaminación
-│   │   ├── notifications_service.dart # Notificaciones Firebase
-│   ├── 📂 config/                 # Configuración del backend
-│   │   ├── firebase_config.dart    # Configuración de Firebase
+│   │   ├── report_service.dart    # Gestión de reportes
+│   ├── 📂 models/                 # Definición de clases y modelos de datos
+│   ├── 📂 utils/                  # Funciones auxiliares y constantes
+│   ├── 📜 main.dart               # Archivo principal de la aplicación Flutter
+│   ├── 📜 pubspec.yaml            # Archivo de configuración de dependencias
+│   ├── 📜 routes.dart             # Definición de rutas y navegación
+│
+├── backend/                       # Backend integrado en el mismo proyecto
+│   ├── 📜 server.dart              # Servidor backend en Dart con shelf o shelf_router
+│   ├── 📂 controllers/             # Controladores de la API
+│   │   ├── auth_controller.dart    # Controlador de autenticación
+│   │   ├── user_controller.dart    # Controlador de usuarios
+│   │   ├── report_controller.dart  # Controlador de reportes
+│   ├── 📂 models/                  # Modelos de base de datos
+│   ├── 📂 services/                # Servicios de lógica de negocio
+│   ├── 📂 config/                  # Configuración del backend
+│   │   ├── database.dart           # Configuración de base de datos (SQLite, Firebase, etc.)
 │   │   ├── environment.dart        # Variables de entorno
+│   ├── 📂 middlewares/             # Middlewares para autenticación, logs, etc.
 │   ├── 📜 README.md                # Documentación del backend
 │
-└── 📜 README.md                    # Documentación del proyecto
+└── 📜 README.md                    # Documentación general del proyecto
+
 
 ```
 ## **📌 Clonar el Repositorio**
