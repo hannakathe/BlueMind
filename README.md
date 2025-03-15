@@ -77,27 +77,10 @@ BlueMind/
 │   │   ├── content_service.dart   # Gestión de contenido (blog y recursos)
 │   │   ├── report_service.dart    # Gestión de reportes de contaminación
 │   │   ├── notifications_service.dart # Notificaciones Firebase
-│   ├── 📂 tests/                  # Pruebas del backend
-│   │   ├── test_api.dart           # Pruebas de integración con APIs
 │   ├── 📂 config/                 # Configuración del backend
 │   │   ├── firebase_config.dart    # Configuración de Firebase
 │   │   ├── environment.dart        # Variables de entorno
-│   ├── 📜 requirements.txt         # Dependencias si se usa Python
 │   ├── 📜 README.md                # Documentación del backend
-│
-├── 📂 docs/                        # Documentación general del proyecto
-│   ├── 📜 guia_desarrollo.pdf       # Documento guía del desarrollo
-│   ├── 📜 arquitectura.md           # Documentación sobre la arquitectura
-│   ├── 📂 casos_de_uso/             # Diagramas de casos de uso
-│   ├── 📂 secuencias/               # Diagramas de secuencia
-│   ├── 📂 base_de_datos/            # Modelo de datos y estructura de Firestore
-│   ├── 📂 api/                      # Documentación de API y endpoints
-│   ├── 📂 pruebas/                  # Plan de pruebas y resultados
-│   ├── 📂 informes/                  # Reportes y métricas del sistema
-│   ├── 📂 presentación/              # Documentos para la defensa final
-│
-├── 📂 .github/                     # Configuración de GitHub Actions y CI/CD
-│   ├── 📂 workflows/                 # Workflows de automatización
 │
 └── 📜 README.md                    # Documentación del proyecto
 
