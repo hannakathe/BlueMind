@@ -7,23 +7,25 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200], // Color de fondo similar al de la imagen
+      backgroundColor: Colors.grey[200],
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const CircleAvatar( //LOGO
+              const CircleAvatar(
                 radius: 40,
                 backgroundColor: Colors.grey,
               ),
               const SizedBox(height: 20),
               Text(
                 'BlueMind',
-                style: GoogleFonts.montserrat(color: Color.fromRGBO(0, 0, 0, 1),
-                fontSize: 40,)
+                style: GoogleFonts.montserrat(
+                  color: const Color.fromRGBO(0, 0, 0, 1),
+                  fontSize: 40,
                 ),
+              ),
               const SizedBox(height: 20),
               TextField(
                 decoration: InputDecoration(

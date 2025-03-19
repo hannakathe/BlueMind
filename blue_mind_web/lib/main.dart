@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'pages/login_view.dart'; // Asegúrate de que el archivo login_view.dart está en la misma carpeta
+import 'package:get/get.dart';
+import 'pages/home_view.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -10,10 +11,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'BlueMind Login',
-      home: LoginView(),
+      home: HomeScreen(),
     );
   }
 }
