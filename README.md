@@ -360,12 +360,12 @@ El desarrollo seguirá una **metodología ágil** con reuniones semanales para e
 # **📌 Resumen General de Sprints**
 | **Sprint** | **Fechas** | **Objetivo Principal** |
 |-----------|------------|----------------------|
-| **Sprint 1** | 13 mar - 27 mar | Configuración del entorno y autenticación básica |
-| **Sprint 2** | 27 mar - 10 abr | UI principal y gestión de usuarios |
-| **Sprint 3** | 10 abr - 24 abr | Blog, comentarios y biblioteca científica |
-| **Sprint 4** | 24 abr - 8 may | Mapas, reportes de contaminación y favoritos |
-| **Sprint 5** | 8 may - 22 may | Panel de administración, chatbot y optimización |
-| **Sprint 6** | 22 may - 31 may | PWA, gamificación y lanzamiento final |
+| **Sprint 1** | 13 mar - 03 abr | Configuración del entorno y autenticación básica |
+| **Sprint 2** | 04 abr - 17 abr | UI principal y gestión de usuarios |
+| **Sprint 3** | 18 abr - 01 may | Blog, comentarios y biblioteca científica |
+| **Sprint 4** | 02 may - 15 may | Mapas, reportes de contaminación y favoritos |
+| **Sprint 5** | 16 may - 29 may | Panel de administración, chatbot y optimización |
+| **Sprint 6** | 30 may - 12 jun | PWA, gamificación y lanzamiento final |
 
 ## 📌 Conclusión
 BlueMind es una plataforma educativa innovadora diseñada para concienciar sobre la conservación de los océanos y el acceso al agua limpia. Con un enfoque en accesibilidad, usabilidad y sostenibilidad, ofrecerá contenido interactivo y educativo para diversos públicos. Su desarrollo sigue un enfoque iterativo con tecnologías modernas y buenas prácticas en UI/UX y gestión de proyectos, asegurando una plataforma eficiente y de alto impacto ambiental y educativo.
