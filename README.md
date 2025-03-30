@@ -289,6 +289,53 @@ Para garantizar calidad en el código y evitar conflictos, se seguirán estos pa
 8. **Eliminar la rama después de la fusión:**
    - En GitHub Desktop, cambia a la rama `develop`.
    - En **Current Branch**, selecciona la rama eliminada y haz clic en **Delete branch**.
+  
+## Cómo hacer buenos commits
+
+Hacer buenos commits es clave para mantener un historial claro y comprensible en un proyecto. A continuación, te dejo algunas recomendaciones y ejemplos.
+
+### 📌 Buenas prácticas para escribir commits
+
+1. **Sé claro y conciso**: Describe qué cambió y por qué.
+2. **Usa el presente imperativo**: En lugar de "Agregado botón", usa "Agrega botón".
+3. **Separa cambios grandes en commits pequeños**: Un commit = un cambio lógico.
+4. **Incluye contexto si es necesario**: Si resuelve un issue, referencia su número.
+
+### 📍 Tipos de commits más comunes
+
+| Tipo       | Descripción |
+|------------|------------|
+| `feat`     | Nueva funcionalidad |
+| `fix`      | Corrección de errores |
+| `docs`     | Cambios en documentación |
+| `style`    | Cambios de formato (espacios, comas, etc.) sin alterar código |
+| `refactor` | Mejoras en código sin cambiar funcionalidad |
+| `test`     | Añadir o modificar tests |
+| `chore`    | Tareas de mantenimiento (actualizar dependencias, configuración, etc.) |
+
+### 📍 Tipos de alcance  
+
+| Alcance  | Descripción |
+|----------|--------------------------------|
+| `api`   | Relacionado con la API |
+| `ui`    | Interfaz de usuario |
+| `db`    | Base de datos |
+| `auth`  | Autenticación |
+| `build` | Configuración de compilación |
+| `deps`  | Dependencias |
+
+## ✅ Ejemplos de buenos commits
+
+```sh
+  feat(ui): mejora el diseño del botón de inicio
+
+  Se ajusta el tamaño y color del botón de inicio para mejorar la accesibilidad.  
+  Se agregan estilos CSS para mayor contraste en pantallas con modo oscuro.  
+
+  Refs: #102
+  ```
+ 
+
 
 ## 📌 Integración con Google Docs para la documentación
 **¿Qué se debe hacer?**  
