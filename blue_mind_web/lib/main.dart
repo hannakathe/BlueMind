@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'pages/home_view.dart';
+import 'theme/theme_controller.dart';
+import 'routes.dart';
 
-//
 void main() {
+  Get.put(ThemeController());
   runApp(const MyApp());
 }
 
@@ -14,7 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
-);
-}
+      initialRoute: AppRoutes.preHome,
+      getPages: AppRoutes.routes,
+    );
+  }
 }

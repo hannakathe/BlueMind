@@ -21,9 +21,13 @@ class LoginView extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Colors.white,
+                  ClipOval(
+                    child: Image.asset(
+                      'assets/images/logo.jpg', // Ruta corregida
+                      height: 100, // Ajusta el tamaño
+                      width: 100, // Ajusta el tamaño
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   const SizedBox(height: 45),
                   Text(
@@ -35,9 +39,10 @@ class LoginView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  
+
                   // Campo de correo
-                  _buildTextField(label: 'Correo electrónico', obscureText: false),
+                  _buildTextField(
+                      label: 'Correo electrónico', obscureText: false),
                   const SizedBox(height: 15),
 
                   // Campo de contraseña
@@ -146,7 +151,7 @@ class LoginView extends StatelessWidget {
         ),
         icon: Icon(icon, color: Colors.white), // Ícono en blanco
         label: Text(text, style: const TextStyle(color: Colors.white)),
-     ),
-);
-}
+      ),
+    );
+  }
 }
