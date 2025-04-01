@@ -30,14 +30,16 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [
           TextButton(
-            onPressed: () => Get.to(() => const RegisterView()), // Navega a RegisterView
+            onPressed: () =>
+                Get.to(() => const RegisterView()), // Navega a RegisterView
             child: const Text(
               "Registrarse",
               style: TextStyle(color: Colors.black),
             ),
           ),
           TextButton(
-            onPressed: () => Get.to(() => const LoginView()), // Navega a LoginView
+            onPressed: () =>
+                Get.to(() => const LoginView()), // Navega a LoginView
             child: const Text(
               "Iniciar Sesión",
               style: TextStyle(color: Colors.black),
@@ -48,7 +50,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Container(
         color: Colors.white,
-     ),
-);
-}
+      ),
+    );
+  }
 }
