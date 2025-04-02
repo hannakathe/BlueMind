@@ -39,7 +39,7 @@ Se utilizarán herramientas como **Figma, Flutter/Dart, Google Docs y Scrum** pa
 
 ## 📌 Estructura del Proyecto
 
-El proyecto sigue una estructura de carpetas bien organizada para facilitar su desarrollo y mantenimiento. A continuación, se presenta una posible estructura del repositorio de código:
+El proyecto sigue una estructura de carpetas bien organizada para facilitar su desarrollo y mantenimiento. A continuación, se presenta una posible estructura del repositorio de código (En Vs Code van a ver mas carpetas ademas de las siguientes,listadas, no trabajar enesas carpetas, nuestroproyectosetrabajara en estas carpetas, omitan las demas (NO LAS BORREN)):
 
 ```
 MiAppFlutter/
@@ -357,15 +357,182 @@ El desarrollo seguirá una **metodología ágil** con reuniones semanales para e
 - **Base de datos**: SQL o NoSQL.
 - **Servicios externos**: Firebase/Auth0 para autenticación, Google Maps o Leaflet para mapas, almacenamiento en la nube para multimedia y documentos.
 
+# 📌 Guía para Realizar un Commit Correctamente en Git
+
+Realizar un commit de manera adecuada ayuda a mantener un historial de cambios claro y organizado.  
+Sigue estos pasos para asegurarte de que cada commit sea útil y comprensible.
+
+---
+
+## 🚀 1. Configurar Git (si es la primera vez)
+Antes de hacer commits, asegúrate de haber configurado tu usuario y correo:
+
+```sh
+git config --global user.name "Tu Nombre"
+git config --global user.email "tuemail@example.com"
+```
+
+---
+
+## 📂 2. Asegurar que estás en la rama correcta
+Antes de realizar cambios, verifica en qué rama estás:
+
+```sh
+git branch
+```
+
+Si necesitas cambiar de rama:
+
+```sh
+git checkout nombre-de-la-rama
+```
+
+---
+
+## 📝 3. Agregar archivos al commit
+Para agregar **todos los archivos modificados**:
+
+```sh
+git add .
+```
+
+Si solo deseas agregar un archivo específico:
+
+```sh
+git add archivo.txt
+```
+
+---
+
+## ✏️ 4. Escribir un buen mensaje de commit
+Este documento explica cómo escribir mensajes de commit claros y estructurados siguiendo el formato **Convencional Commits**.
+
+## 📌 Formato General del Commit
+```
+[tipo](alcance):[asunto](descripción)
+```
+
+## 🏷 1. Tipo (`[tipo]`)
+El tipo indica **qué tipo de cambio** estás realizando en el código. Algunos ejemplos comunes son:
+
+- `feat` → Nueva funcionalidad
+- `fix` → Corrección de errores
+- `docs` → Cambios en la documentación
+- `style` → Cambios de formato sin afectar la lógica del código
+- `refactor` → Mejora del código sin cambiar funcionalidad
+- `test` → Agregar o modificar pruebas
+
+## 📂 2. Alcance (`(alcance)`)
+Es **opcional** y se usa para especificar **qué parte del código** está siendo modificada. Ejemplos:
+
+- `(auth)` → Para cambios en autenticación
+- `(ui)` → Para cambios en la interfaz de usuario
+- `(db)` → Para cambios en la base de datos
+- `(api)` → Para cambios en la API
+
+Si el commit afecta a todo el proyecto o el alcance no es necesario, **puede omitirse**.
+
+## ✏️ 3. Asunto (`[asunto]`)
+Es un **resumen corto** de lo que hace el commit. **Debe ser claro y directo**, sin punto final.
+
+Ejemplo:
+```sh
+feat(ui): agregar botón de inicio de sesión
+```
+
+## 📝 4. Descripción (`(descripción)`) *(Opcional)*
+Si necesitas explicar más detalles, puedes agregar una descripción adicional.
+
+Ejemplo con descripción detallada:
+```sh
+git commit -m "fix(auth): corregido error en login" -m "El error ocurría cuando un usuario ingresaba credenciales inválidas y la respuesta del servidor no se manejaba correctamente."
+```
+
+---
+
+## ✅ Ejemplos Completos
+
+1️⃣ **Agregar una nueva funcionalidad de notificaciones:**
+```sh
+git commit -m "feat(notifications): implementar notificaciones push"
+```
+
+2️⃣ **Corregir un error en la autenticación:**
+```sh
+git commit -m "fix(auth): corregido error en el token de sesión"
+```
+
+3️⃣ **Cambiar estilos en la interfaz:**
+```sh
+git commit -m "style(ui): mejorar la alineación de botones"
+```
+
+4️⃣ **Agregar pruebas unitarias a la API:**
+```sh
+git commit -m "test(api): añadir pruebas para el endpoint de usuarios"
+```
+
+---
+
+## 🚀 **Resumen**
+| Elemento  | Significado |
+|-----------|------------|
+| **Tipo**  | ¿Qué tipo de cambio se hizo? (feat, fix, docs, style, refactor, test, etc.) |
+| **Alcance** | ¿En qué parte del código se hizo el cambio? (auth, ui, db, etc.) *(Opcional)* |
+| **Asunto** | Breve resumen del cambio realizado |
+| **Descripción** | Explicación más detallada del cambio *(Opcional)* |
+
+Siguiendo este formato, los commits serán **más ordenados, fáciles de entender y útiles** para el historial del proyecto. 🚀
+
+---
+📌 **Consejo:** Usa commits pequeños y específicos para facilitar el seguimiento de cambios.
+
+---
+
+## 🔄 5. Subir cambios al repositorio remoto
+Para subir los cambios a la rama actual:
+
+```sh
+git push origin nombre-de-la-rama
+```
+
+Si es la primera vez que subes la rama:
+
+```sh
+git push --set-upstream origin nombre-de-la-rama
+```
+
+---
+
+## 🔄 6. Ver el historial de commits
+Puedes ver los commits realizados con:
+
+```sh
+git log --oneline --graph --decorate --all
+```
+
+---
+
+## 🛑 ¿Te equivocaste en el último commit?
+Si necesitas modificar el último commit (antes de hacer push):
+
+```sh
+git commit --amend -m "[tipo](alcance):[nuevo mensaje de commit]"
+```
+
+---
+
 # **📌 Resumen General de Sprints**
 | **Sprint** | **Fechas** | **Objetivo Principal** |
 |-----------|------------|----------------------|
+
 | **Sprint 1** | 13 mar - 03 abr | Configuración del entorno y autenticación básica |
 | **Sprint 2** | 04 abr - 17 abr | UI principal y gestión de usuarios |
 | **Sprint 3** | 18 abr - 01 may | Blog, comentarios y biblioteca científica |
 | **Sprint 4** | 02 may - 15 may | Mapas, reportes de contaminación y favoritos |
 | **Sprint 5** | 16 may - 29 may | Panel de administración, chatbot y optimización |
 | **Sprint 6** | 30 may - 12 jun | PWA, gamificación y lanzamiento final |
+
 
 ## 📌 Conclusión
 BlueMind es una plataforma educativa innovadora diseñada para concienciar sobre la conservación de los océanos y el acceso al agua limpia. Con un enfoque en accesibilidad, usabilidad y sostenibilidad, ofrecerá contenido interactivo y educativo para diversos públicos. Su desarrollo sigue un enfoque iterativo con tecnologías modernas y buenas prácticas en UI/UX y gestión de proyectos, asegurando una plataforma eficiente y de alto impacto ambiental y educativo.
