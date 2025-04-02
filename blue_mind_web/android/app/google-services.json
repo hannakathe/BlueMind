@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "351823626349",
+    "project_id": "bluemind-61ea7",
+    "storage_bucket": "bluemind-61ea7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351823626349:android:285d252b84dbf00449ff64",
+        "android_client_info": {
+          "package_name": "com.example.blue_mind_web"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351823626349-01uo7ed2k63fcg63ujb6dadvcnhlr63j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7-PoKqfAtNi5baTBykDZeXuga_QfyT9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351823626349-01uo7ed2k63fcg63ujb6dadvcnhlr63j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "351823626349-i3mtbgkut4rkj107drmddn5saf5dv7hr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.blueMindWeb"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
