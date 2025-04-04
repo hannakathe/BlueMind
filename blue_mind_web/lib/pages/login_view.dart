@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+//import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -16,7 +16,6 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   User? _user;
 
   @override
@@ -32,46 +31,10 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Image.network(
-            'https://images.unsplash.com/photo-1475372674317-8003c861cb6a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fA%3D%3D',
-            fit: BoxFit.cover,
-          ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ClipOval(
-                    child: Image.asset(
-                      'assets/images/logo.jpg', // Ruta corregida
-                      height: 100, // Ajusta el tamaño
-                      width: 100, // Ajusta el tamaño
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  const SizedBox(height: 45),
-                  Text(
-                    'BlueMind',
-                    style: GoogleFonts.montserrat(
-                      color: Colors.white,
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Campo de correo
-                  _buildTextField(
-                      label: 'Correo electrónico', obscureText: false),
-                  const SizedBox(height: 15),
-
       body: _user != null
-          ? ProfileView(auth: _auth)
+          ? ProfileView(
+              auth:
+                  _auth) // Muestra la vista de perfil si el usuario está autenticado
           : Stack(
               fit: StackFit.expand,
               children: [
@@ -85,9 +48,13 @@ class _LoginViewState extends State<LoginView> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const CircleAvatar(
-                          radius: 50,
-                          backgroundColor: Colors.white,
+                        ClipOval(
+                          child: Image.asset(
+                            'assets/images/logo.jpg', // Ruta corregida
+                            height: 100, // Ajusta el tamaño
+                            width: 100, // Ajusta el tamaño
+                            fit: BoxFit.cover,
+                          ),
                         ),
                         const SizedBox(height: 45),
                         Text(
@@ -104,7 +71,6 @@ class _LoginViewState extends State<LoginView> {
                         _buildTextField(
                             label: 'Correo electrónico', obscureText: false),
                         const SizedBox(height: 15),
-
 
                         // Campo de contraseña
                         _buildTextField(label: 'Contraseña', obscureText: true),
@@ -215,7 +181,6 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
-
 
   void _handleGoogleSignIn() {
     try {

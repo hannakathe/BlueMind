@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import '../routes.dart';
 import '../theme/app_colors.dart';
 
 import '../theme/theme_controller.dart';
-
 
 class PreHomeScreen extends StatelessWidget {
   final List<String> images = [
@@ -84,34 +82,6 @@ class PreHomeScreen extends StatelessWidget {
             ),
             const SizedBox(width: 10),
           ],
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              CarouselSlider(
-                options: CarouselOptions(
-                  height: 800.0,
-                  autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 5),
-                  enlargeCenterPage: true,
-                ),
-                items: images.map((url) {
-                  return Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 50),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      image: DecorationImage(
-                        image: NetworkImage(url),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 20),
-            ],
-          ),
         ),
       );
     });
