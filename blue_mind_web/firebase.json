@@ -1,0 +1,25 @@
+{
+    "flutter":{
+       "platforms":{
+          "android":{
+             "default":{
+                "projectId":"bluemind-61ea7",
+                "appId":"1:351823626349:android:285d252b84dbf00449ff64",
+                "fileOutput":"android/app/google-services.json"
+             }
+          },
+          "dart":{
+             "lib/firebase_options.dart":{
+                "projectId":"bluemind-61ea7",
+                "configurations":{
+                   "android":"1:351823626349:android:285d252b84dbf00449ff64",
+                   "ios":"1:351823626349:ios:af79fbced2ded73349ff64",
+                   "macos":"1:351823626349:ios:af79fbced2ded73349ff64",
+                   "web":"1:351823626349:web:10e482a35c86754949ff64",
+                   "windows":"1:351823626349:web:b9ade0beca56977549ff64"
+                }
+             }
+          }
+       }
+    }
+ }
