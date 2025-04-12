@@ -6,6 +6,7 @@ import 'theme/theme_controller.dart';
 import 'routes.dart';
 import 'controllers/auth_controller.dart';
 
+//FUNCIONAL Y DEFINITIVO, REVISAR INTEGRACIO COMPLETA
 void main() async {
   Get.put(ThemeController());
   WidgetsFlutterBinding.ensureInitialized();
