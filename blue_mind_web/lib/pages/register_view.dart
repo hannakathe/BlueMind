@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+//import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../routes.dart';
 
 class RegisterView extends StatelessWidget {
   const RegisterView({super.key});
@@ -56,7 +60,9 @@ class RegisterView extends StatelessWidget {
                     width: 400,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.home);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF150578),
                         foregroundColor: Colors.white,
