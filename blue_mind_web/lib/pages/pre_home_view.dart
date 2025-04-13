@@ -6,13 +6,6 @@ import '../theme/app_colors.dart';
 import '../theme/theme_controller.dart';
 
 class PreHomeScreen extends StatelessWidget {
-  final List<String> images = [
-    'https://images.unsplash.com/photo-1578404421628-5d0b4c8662de?q=80&w=2083&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1581242163695-19d0acfd486f?q=80&w=1974&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1441555136638-e47c0158bfc9?q=80&w=2074&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1563974514898-7aea295e12fa?q=80&w=2067&auto=format&fit=crop',
-  ];
-
   @override
   Widget build(BuildContext context) {
     final ThemeController themeController = Get.find();
@@ -30,10 +23,10 @@ class PreHomeScreen extends StatelessWidget {
           title: Row(
             children: [
               ClipOval(
-                child: Image.asset(
-                  'assets/images/logo2.jpg', // Ruta corregida
-                  height: 40, // Ajusta el tamaño
-                  width: 40, // Ajusta el tamaño
+                child: Image(image: AssetImage('assets/logoW-invert.png',
+                ),
+                  height: 70,
+                  width: 70,
                   fit: BoxFit.cover,
                 ),
               ),

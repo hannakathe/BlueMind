@@ -26,14 +26,16 @@ class RegisterView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ClipOval(
-                    child: Image.asset(
-                      'assets/images/logo.jpg', // Ruta corregida
-                      height: 100, // Ajusta el tamaño
-                      width: 100, // Ajusta el tamaño
+                    child: Image(
+                      image: AssetImage(
+                        'assets/logoW-invert.png',
+                      ),
+                      height: 300,
+                      width: 300,
                       fit: BoxFit.cover,
                     ),
                   ),
-                  const SizedBox(height: 45),
+                  const SizedBox(height: 15),
                   Text(
                     'BlueMind',
                     style: GoogleFonts.montserrat(
@@ -46,8 +48,9 @@ class RegisterView extends StatelessWidget {
 
                   // Campo de correo
                   _buildTextField(
-                      label: 'Ingrersar correo electrónico',
-                      obscureText: false,),
+                    label: 'Ingrersar correo electrónico',
+                    obscureText: false,
+                  ),
                   const SizedBox(height: 15),
 
                   // Campo de contraseña

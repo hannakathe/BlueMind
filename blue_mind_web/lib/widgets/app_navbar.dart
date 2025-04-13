@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import '../routes.dart';
 import '../theme/app_typography.dart';
 
@@ -10,13 +10,24 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       elevation: 0,
-      title: SingleChildScrollView( // Permite hacer scroll horizontal
+      title: SingleChildScrollView(
+        // Permite hacer scroll horizontal
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
-            const CircleAvatar(backgroundColor: Colors.grey, radius: 14),
+            ClipOval(
+              child: Image(
+                image: AssetImage(
+                  'assets/logoW.png',
+                ),
+                height: 70,
+                width: 70,
+                fit: BoxFit.cover,
+              ),
+            ),
             const SizedBox(width: 8),
             Text(
               'BlueMind',
@@ -25,8 +36,10 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(width: 620),
-                _buildNavLink('Inicio', AppRoutes.home),
+                const SizedBox(width: 625),
+                _buildNavLink('Inicio', AppRoutes.home, arguments: {
+                  'auth': FirebaseAuth.instance,
+                }),
                 const SizedBox(width: 20),
                 _buildNavLink('Blog', AppRoutes.blog),
                 const SizedBox(width: 20),
@@ -49,9 +62,10 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  Widget _buildNavLink(String text, String route) {
+  Widget _buildNavLink(String text, String route,
+      {Map<String, dynamic>? arguments}) {
     return TextButton(
-      onPressed: () => Get.toNamed(route),
+      onPressed: () => Get.toNamed(route, arguments: arguments),
       child: Text(
         text,
         style: AppTypography.h3Menus,
@@ -84,7 +98,9 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
         color: Colors.black,
         size: 32, // Tamaño aumentado del ícono
       ),
-      onPressed: () => Get.toNamed(AppRoutes.profile),
+      onPressed: () => Get.toNamed(AppRoutes.profile, arguments: {
+        'auth': FirebaseAuth.instance,
+      }),
     );
   }
 
