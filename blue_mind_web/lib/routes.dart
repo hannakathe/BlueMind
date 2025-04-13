@@ -1,4 +1,10 @@
 import 'package:get/get.dart';
+import 'pages/admin_view.dart';
+import 'pages/album_view.dart';
+import 'pages/blog_view.dart';
+import 'pages/forum_view.dart';
+import 'pages/library_view.dart';
+import 'pages/map_view.dart';
 import 'pages/pre_home_view.dart';
 import 'pages/home_view.dart';
 import 'pages/login_view.dart';
@@ -7,17 +13,31 @@ import 'pages/register_view.dart';
 
 class AppRoutes {
   static const String preHome = '/';
-  static const String home = '/home';
   static const String login = '/login';
   static const String register = '/register';
+  static const String home = '/home';
   static const String profile = '/profile';
+  static const String blog = '/blog';
+  static const String forum = '/forum';
+  static const String library = '/library';
+  static const String album = '/album';
+  static const String map = '/map';
+  static const String admin = '/admin';
+  
 
 
   static List<GetPage> routes = [
     GetPage(name: preHome, page: () => PreHomeScreen()),
-    GetPage(name: home, page: () => HomeScreen()),
     GetPage(name: login, page: () => LoginView()),
     GetPage(name: register, page: () => RegisterView()),
+    GetPage(name: home, page: () => HomeView()),
     GetPage(name: profile, page: () => ProfileView()),
+    GetPage(name: blog, page: () => BlogView()),
+    GetPage(name: forum, page: () => ForumView()),
+    GetPage(name: library, page: () => LibraryView()),
+    GetPage(name: album, page: () => AlbumView()),
+    GetPage(name: map, page: () => MapView()),
+    GetPage(name: admin, page: () => AdminView()),
+    
   ];
 }

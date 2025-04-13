@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../routes.dart';
+import '../theme/app_typography.dart';
 
 class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
   const AppNavbar({super.key});
@@ -11,30 +12,39 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0,
-      title: Row(
-        children: [
-          const CircleAvatar(backgroundColor: Colors.grey, radius: 14),
-          const SizedBox(width: 8),
-          const Text(
-            'BlueMind',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-              fontSize: 18,
+      title: SingleChildScrollView( // Permite hacer scroll horizontal
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            const CircleAvatar(backgroundColor: Colors.grey, radius: 14),
+            const SizedBox(width: 8),
+            Text(
+              'BlueMind',
+              style: AppTypography.blueMindtitle,
             ),
-          ),
-          const Spacer(),
-          _buildNavLink('Inicio', AppRoutes.home),
-          /*_buildNavLink('Blog', AppRoutes.blog),
-          _buildNavLink('Foro', AppRoutes.foro),
-          _buildNavLink('Recursos\nEducativos', AppRoutes.recursos),
-          _buildNavLink('Álbum de\nEspecies', AppRoutes.album),
-          _buildNavLink('Mapa\nInteractivo', AppRoutes.mapa),*/
-          const SizedBox(width: 16),
-          _buildSearchBox(),
-          const SizedBox(width: 16),
-          _buildProfileButton(),
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(width: 620),
+                _buildNavLink('Inicio', AppRoutes.home),
+                const SizedBox(width: 20),
+                _buildNavLink('Blog', AppRoutes.blog),
+                const SizedBox(width: 20),
+                _buildNavLink('Foro', AppRoutes.forum),
+                const SizedBox(width: 20),
+                _buildNavLink('Recursos\nEducativos', AppRoutes.library),
+                const SizedBox(width: 20),
+                _buildNavLink('Álbum de\nEspecies', AppRoutes.album),
+                const SizedBox(width: 20),
+                _buildNavLink('Mapa\nInteractivo', AppRoutes.map),
+                const SizedBox(width: 20),
+                _buildSearchBox(),
+                const SizedBox(width: 20),
+                _buildProfileButton(),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -44,7 +54,7 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
       onPressed: () => Get.toNamed(route),
       child: Text(
         text,
-        style: const TextStyle(color: Colors.black),
+        style: AppTypography.h3Menus,
         textAlign: TextAlign.center,
       ),
     );
@@ -52,7 +62,7 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
 
   Widget _buildSearchBox() {
     return SizedBox(
-      width: 160,
+      width: 300,
       height: 35,
       child: TextField(
         decoration: InputDecoration(
@@ -68,13 +78,13 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   Widget _buildProfileButton() {
-    return TextButton.icon(
-      onPressed: () => Get.toNamed(AppRoutes.profile),
-      icon: const Icon(Icons.person_outline, color: Colors.black),
-      label: const Text(
-        'Perfil',
-        style: TextStyle(color: Colors.black),
+    return IconButton(
+      icon: const Icon(
+        Icons.person_outline,
+        color: Colors.black,
+        size: 32, // Tamaño aumentado del ícono
       ),
+      onPressed: () => Get.toNamed(AppRoutes.profile),
     );
   }
 

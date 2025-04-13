@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/app_navbar.dart';
+
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
 
@@ -11,16 +13,7 @@ class ProfileView extends StatelessWidget {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('BlueMind'),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 0,
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
-        ],
-      ),
+      appBar: AppNavbar(),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: ListView(
@@ -28,21 +21,6 @@ class ProfileView extends StatelessWidget {
             // Encabezado con menú
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Row(
-                children: const [
-                  Text("Inicio", style: TextStyle(fontWeight: FontWeight.bold)),
-                  SizedBox(width: 20),
-                  Text("Blog"),
-                  SizedBox(width: 20),
-                  Text("Foro"),
-                  SizedBox(width: 20),
-                  Text("Recursos Educativos"),
-                  SizedBox(width: 20),
-                  Text("Álbum de Especies"),
-                  SizedBox(width: 20),
-                  Text("Mapa Interactivo"),
-                ],
-              ),
             ),
             const SizedBox(height: 20),
             // Perfil
