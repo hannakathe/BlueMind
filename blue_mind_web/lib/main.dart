@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'theme/theme_controller.dart';
 import 'routes.dart';
+import 'controllers/auth_controller.dart';
 
-void main() {
+//FUNCIONAL Y DEFINITIVO, REVISAR INTEGRACIO COMPLETA
+void main() async {
   Get.put(ThemeController());
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  Get.put(AuthController());
+
+  runApp(const MyApp()); //revisar
 }
 
 class MyApp extends StatelessWidget {

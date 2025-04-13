@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import '../widgets/app_navbar.dart';
 
-class ProfileView extends StatelessWidget {
-  const ProfileView({super.key});
+class ProfileView extends StatefulWidget {
+  final FirebaseAuth auth;
+
+  const ProfileView({Key? key, required this.auth}) : super(key: key);
+
+  @override
+  _ProfileViewState createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> {
+  User? get user => widget.auth.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +27,11 @@ class ProfileView extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: ListView(
           children: [
-            // Encabezado con menú
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-            ),
             const SizedBox(height: 20),
-            // Perfil
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Avatar y correo
+                // Avatar y datos básicos
                 Column(
                   children: [
                     const CircleAvatar(
@@ -36,14 +40,25 @@ class ProfileView extends StatelessWidget {
                       child: Icon(Icons.photo_camera, size: 30, color: Colors.white),
                     ),
                     const SizedBox(height: 10),
-                    const Text('Usuario', style: TextStyle(fontWeight: FontWeight.bold)),
-                    const Text('Usuario@email.com'),
+                    Text(
+                      user?.displayName ?? 'Usuario',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(user?.email ?? 'usuario@email.com'),
                     const SizedBox(height: 10),
                     TextButton(
                       onPressed: () {
                         // Acción de eliminar cuenta
                       },
                       child: const Text('Eliminar Cuenta', style: TextStyle(color: Colors.red)),
+                    ),
+                    const SizedBox(height: 10),
+                    MaterialButton(
+                      color: Colors.blueAccent,
+                      child: const Text('Cerrar Sesión', style: TextStyle(color: Colors.white)),
+                      onPressed: () async {
+                        await widget.auth.signOut();
+                      },
                     ),
                   ],
                 ),
@@ -163,3 +178,4 @@ class ProfileView extends StatelessWidget {
     );
   }
 }
+
