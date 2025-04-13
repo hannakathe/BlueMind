@@ -31,7 +31,7 @@ class AppRoutes {
     GetPage(name: login, page: () => LoginView()),
     GetPage(name: register, page: () => RegisterView()),
     GetPage(name: home, page: () => HomeView()),
-    GetPage(name: profile, page: () => ProfileView()),
+    GetPage(name: profile, page: () => ProfileView()), //Revisar error
     GetPage(name: blog, page: () => BlogView()),
     GetPage(name: forum, page: () => ForumView()),
     GetPage(name: library, page: () => LibraryView()),
@@ -41,3 +41,6 @@ class AppRoutes {
     
   ];
 }
+
+
+//ademas revisar logica de inicio de sesion facebook y google al iniciar la app debe ir al home 
