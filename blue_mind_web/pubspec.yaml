@@ -75,7 +75,7 @@ flutter:
      - assets/flags/cl.png
      - assets/flags/mx.png
      - assets/flags/pe.png
-     - assets/libreria.jpg
+     #- assets/libreria.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
