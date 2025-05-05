@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'pages/admin_view.dart';
 import 'pages/album_view.dart';
 import 'pages/blog_view.dart';
-import 'pages/forum_view.dart';
 import 'pages/library_view.dart';
 import 'pages/map_view.dart';
 import 'pages/pre_home_view.dart';
@@ -18,7 +17,6 @@ class AppRoutes {
   static const String home = '/home';
   static const String profile = '/profile';
   static const String blog = '/blog';
-  static const String forum = '/forum';
   static const String library = '/library';
   static const String album = '/album';
   static const String map = '/map';
@@ -33,7 +31,6 @@ class AppRoutes {
     GetPage(name: home, page: () => HomeView(auth: Get.arguments['auth'])),
     GetPage(name: profile, page: () => ProfileView(auth: Get.arguments['auth'])),
     GetPage(name: blog, page: () => BlogView()),
-    GetPage(name: forum, page: () => ForumView()),
     GetPage(name: library, page: () => LibraryView()),
     GetPage(name: album, page: () => AlbumView()),
     GetPage(name: map, page: () => MapView()),

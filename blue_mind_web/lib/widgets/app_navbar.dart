@@ -43,8 +43,6 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
                 const SizedBox(width: 20),
                 _buildNavLink('Blog', AppRoutes.blog),
                 const SizedBox(width: 20),
-                _buildNavLink('Foro', AppRoutes.forum),
-                const SizedBox(width: 20),
                 _buildNavLink('Recursos\nEducativos', AppRoutes.library),
                 const SizedBox(width: 20),
                 _buildNavLink('Álbum de\nEspecies', AppRoutes.album),

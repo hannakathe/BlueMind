@@ -35,8 +35,8 @@ class PreHomeScreen extends StatelessWidget {
                 "BlueMind",
                 style: TextStyle(
                   color: isDarkMode
-                      ? AppColors.titlesColorDark
-                      : AppColors.titlesColorLight,
+                      ? AppColors.textColorDark
+                      : AppColors.textColorLight,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -48,8 +48,8 @@ class PreHomeScreen extends StatelessWidget {
               icon: Icon(
                 isDarkMode ? Icons.dark_mode : Icons.light_mode,
                 color: isDarkMode
-                    ? AppColors.titlesColorDark
-                    : AppColors.titlesColorLight,
+                    ? AppColors.textColorDark
+                    : AppColors.textColorLight,
               ),
               onPressed: themeController.toggleTheme,
             ),
@@ -59,8 +59,8 @@ class PreHomeScreen extends StatelessWidget {
                 "Registrarse",
                 style: TextStyle(
                     color: isDarkMode
-                        ? AppColors.titlesColorDark
-                        : AppColors.titlesColorLight),
+                        ? AppColors.textColorDark
+                        : AppColors.textColorLight),
               ),
             ),
             TextButton(
@@ -69,8 +69,8 @@ class PreHomeScreen extends StatelessWidget {
                 "Iniciar Sesión",
                 style: TextStyle(
                     color: isDarkMode
-                        ? AppColors.titlesColorDark
-                        : AppColors.titlesColorLight),
+                        ? AppColors.textColorDark
+                        : AppColors.textColorLight),
               ),
             ),
             const SizedBox(width: 10),
