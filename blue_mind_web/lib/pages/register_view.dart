@@ -87,12 +87,7 @@ class RegisterView extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
 
-                  // Botón de Facebook
-                  _buildSocialButton(
-                    icon: FontAwesomeIcons.facebook,
-                    text: 'Registrarse con Facebook',
-                    onPressed: () {},
-                  ),
+                  
                   const SizedBox(height: 10),
 
                   // Botón de Google

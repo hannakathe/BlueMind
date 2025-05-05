@@ -1,168 +1,128 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import '../widgets/app_navbar.dart';
-import 'document_detail_view.dart';
+// lib/views/blog_view.dart
 
-class LibraryView extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import '../widgets/app_navbar.dart';
+import '../widgets/app_header.dart'; // Importa el nuevo header
+
+class LibraryView extends StatelessWidget {
   const LibraryView({super.key});
 
-  @override
-  State<LibraryView> createState() => _LibraryViewState();
-}
-
-class _LibraryViewState extends State<LibraryView> {
-  List<dynamic> documents = [];
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    fetchDocuments();
-  }
-
-  Future<void> fetchDocuments() async {
-  final url = Uri.parse('http://localhost:3001/documents');
-  try {
-    final response = await http.get(url);
-    if (response.statusCode == 200) {
-      setState(() {
-        documents = json.decode(response.body);
-        isLoading = false;
-      });
-    } else {
-      throw Exception('Error al cargar documentos: ${response.statusCode}');
-    }
-  } catch (e) {
-    print('Error al cargar documentos: $e');
-  }
-}
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const AppNavbar(),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Librerías',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 16),
-                  Expanded(
-                    child: GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 16,
-                        childAspectRatio: 0.75,
-                      ),
-                      itemCount: documents.length,
-                      itemBuilder: (context, index) {
-                        return LibraryCard(document: documents[index]);
-                      },
-                    ),
-                  ),
-                ],
-              ),
+  void _showPostDetails(BuildContext context, String title, String description, String imagePath) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(title),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(imagePath),
+            const SizedBox(height: 12),
+            Text(description),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cerrar'),
+          ),
+        ],
       ),
     );
   }
-}
-
-class LibraryCard extends StatefulWidget {
-  final dynamic document;
-
-  const LibraryCard({super.key, required this.document});
-
-  @override
-  State<LibraryCard> createState() => _LibraryCardState();
-}
-
-class _LibraryCardState extends State<LibraryCard> {
-  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
-    final doc = widget.document;
+    final horizontalPadding = 125.0;
+    final verticalPadding = 110.0;
 
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => DocumentDetailView(document: doc),
-          ),
-        );
-      },
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    final posts = List.generate(6, (index) {
+      return {
+        'title': 'Post #$index',
+        'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        'image': 'assets/images/sample${index % 3 + 1}.jpg',
+      };
+    });
+
+    return Scaffold(
+      appBar: const AppNavbar(),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding,
+          vertical: verticalPadding,
+        ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              doc['imageUrl'],
-              height: 100,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => Container(
-                height: 100,
-                color: Colors.grey[300],
-                child: const Center(child: Icon(Icons.broken_image)),
-              ),
+            const AppHeader(
+              imagePath: 'assets/images/libreria.jpg',
+              title: 'Bienvenido a la libreria de recursos educativos',
+              subtitle: 'Descubre nuestros últimos artículos y novedades del mundo digital.',
+              height: 300, // Cambia esto si deseas más alto o más bajo
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                doc['title'],
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                doc['summary'],
-                style: const TextStyle(fontSize: 12),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      isFavorite ? Icons.favorite : Icons.favorite_border,
-                      size: 18,
-                      color: isFavorite ? Colors.red : Colors.grey,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        isFavorite = !isFavorite;
-                      });
-                      // TODO: Guardar en favoritos
-                    },
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.download, size: 18),
-                    onPressed: () {
-                      // TODO: Acción de descarga
-                    },
-                  ),
-                ],
-              ),
+            const SizedBox(height: 50),
+            StaggeredGrid.count(
+              crossAxisCount: 6,
+              mainAxisSpacing: 20,
+              crossAxisSpacing: 20,
+              children: posts.map((post) {
+                return _buildTile(
+                  context,
+                  post,
+                  3,
+                  4,
+                );
+              }).toList(),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTile(BuildContext context, Map<String, String> post, int crossAxisCellCount, double mainAxisCellCount) {
+    return StaggeredGridTile.count(
+      crossAxisCellCount: crossAxisCellCount,
+      mainAxisCellCount: mainAxisCellCount,
+      child: GestureDetector(
+        onTap: () => _showPostDetails(context, post['title']!, post['description']!, post['image']!),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
+          ),
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  post['image']!,
+                  height: 140,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                post['title']!,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                post['description']!,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(color: Colors.black54),
+              ),
+              const SizedBox(height: 6),
+              const Text(
+                '14 March 2018',
+                style: TextStyle(fontSize: 12, color: Colors.grey),
+              ),
+            ],
+          ),
         ),
       ),
     );

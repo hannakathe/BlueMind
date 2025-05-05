@@ -112,12 +112,7 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         const SizedBox(height: 15),
 
-                        // Botón de Facebook
-                        _buildSocialButton(
-                          icon: FontAwesomeIcons.facebook,
-                          text: 'Iniciar sesión con Facebook',
-                          onPressed: () {},
-                        ),
+                      
                         const SizedBox(height: 10),
 
                         // Botón de Google
