@@ -54,7 +54,7 @@ class LibraryView extends StatelessWidget {
         child: Column(
           children: [
             const AppHeader(
-              imagePath: 'assets/images/libreria.jpg',
+              imagePath: 'https://images.unsplash.com/photo-1579361315655-2f164615b414?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
               title: 'Bienvenido a la libreria de recursos educativos',
               subtitle: 'Descubre nuestros últimos artículos y novedades del mundo digital.',
               height: 300, // Cambia esto si deseas más alto o más bajo

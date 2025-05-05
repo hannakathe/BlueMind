@@ -24,7 +24,7 @@ class AppHeader extends StatelessWidget {
         children: [
           // Imagen de fondo
           Positioned.fill(
-            child: Image.asset(
+            child: Image.network(
               imagePath,
               fit: BoxFit.cover,
             ),
