@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'profile_view.dart';
+import 'home_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -32,7 +32,7 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _user != null
-          ? ProfileView(
+          ? HomeView(
               auth:
                   _auth) // Muestra la vista de perfil si el usuario está autenticado
           : Stack(
@@ -49,14 +49,16 @@ class _LoginViewState extends State<LoginView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ClipOval(
-                          child: Image.asset(
-                            'assets/images/logo.jpg', // Ruta corregida
-                            height: 100, // Ajusta el tamaño
-                            width: 100, // Ajusta el tamaño
+                          child: Image(
+                            image: AssetImage(
+                              'assets/logoW-invert.png',
+                            ),
+                            height: 300,
+                            width: 300,
                             fit: BoxFit.cover,
                           ),
                         ),
-                        const SizedBox(height: 45),
+                        const SizedBox(height: 15),
                         Text(
                           'BlueMind',
                           style: GoogleFonts.montserrat(
@@ -110,12 +112,7 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         const SizedBox(height: 15),
 
-                        // Botón de Facebook
-                        _buildSocialButton(
-                          icon: FontAwesomeIcons.facebook,
-                          text: 'Iniciar sesión con Facebook',
-                          onPressed: () {},
-                        ),
+                      
                         const SizedBox(height: 10),
 
                         // Botón de Google
