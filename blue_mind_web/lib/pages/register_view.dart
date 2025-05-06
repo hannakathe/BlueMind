@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+//import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../routes.dart';
 
 class RegisterView extends StatelessWidget {
   const RegisterView({super.key});
@@ -22,14 +26,16 @@ class RegisterView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ClipOval(
-                    child: Image.asset(
-                      'assets/images/logo.jpg', // Ruta corregida
-                      height: 100, // Ajusta el tamaño
-                      width: 100, // Ajusta el tamaño
+                    child: Image(
+                      image: AssetImage(
+                        'assets/logoW-invert.png',
+                      ),
+                      height: 300,
+                      width: 300,
                       fit: BoxFit.cover,
                     ),
                   ),
-                  const SizedBox(height: 45),
+                  const SizedBox(height: 15),
                   Text(
                     'BlueMind',
                     style: GoogleFonts.montserrat(
@@ -42,8 +48,9 @@ class RegisterView extends StatelessWidget {
 
                   // Campo de correo
                   _buildTextField(
-                      label: 'Ingrersar correo electrónico',
-                      obscureText: false,),
+                    label: 'Ingrersar correo electrónico',
+                    obscureText: false,
+                  ),
                   const SizedBox(height: 15),
 
                   // Campo de contraseña
@@ -56,7 +63,9 @@ class RegisterView extends StatelessWidget {
                     width: 400,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.home);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF150578),
                         foregroundColor: Colors.white,
@@ -78,12 +87,7 @@ class RegisterView extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
 
-                  // Botón de Facebook
-                  _buildSocialButton(
-                    icon: FontAwesomeIcons.facebook,
-                    text: 'Registrarse con Facebook',
-                    onPressed: () {},
-                  ),
+                  
                   const SizedBox(height: 10),
 
                   // Botón de Google
