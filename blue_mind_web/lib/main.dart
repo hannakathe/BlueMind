@@ -6,7 +6,7 @@ import 'theme/theme_controller.dart';
 import 'routes.dart';
 import 'controllers/auth_controller.dart';
 
-//CORRECTO PARA HACER MERGE CON DEVELOP
+//FUNCIONAL Y DEFINITIVO, REVISAR INTEGRACIO COMPLETA
 void main() async {
   Get.put(ThemeController());
   WidgetsFlutterBinding.ensureInitialized();
