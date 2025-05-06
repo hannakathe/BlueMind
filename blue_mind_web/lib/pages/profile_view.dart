@@ -40,10 +40,16 @@ class _ProfileViewState extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    final horizontalPadding = 125.0;
+    final verticalPadding = 50.0;
+
     return Scaffold(
       appBar: AppNavbar(),
-      body: Container(
-        margin: const EdgeInsets.all(30),
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding,
+          vertical: verticalPadding,
+        ),
         child: ListView(
           children: [
             const SizedBox(height: 20),
@@ -55,8 +61,11 @@ class _ProfileViewState extends State<ProfileView> {
                     const CircleAvatar(
                       radius: 70,
                       backgroundColor: Colors.grey,
-                      child: Icon(Icons.photo_camera,
-                          size: 30, color: Colors.white),
+                      child: Icon(
+                        Icons.photo_camera,
+                        size: 30,
+                        color: Colors.white,
+                      ),
                     ),
                     const SizedBox(height: 10),
                     Text(
@@ -69,19 +78,25 @@ class _ProfileViewState extends State<ProfileView> {
                       onPressed: () {
                         // Acción de eliminar cuenta
                       },
-                      child: const Text('Eliminar Cuenta',
-                          style: TextStyle(color: Colors.red)),
+                      child: const Text(
+                        'Eliminar Cuenta',
+                        style: TextStyle(color: Colors.red),
+                      ),
                     ),
                     const SizedBox(height: 10),
                     MaterialButton(
                       color: Colors.blueAccent,
-                      child: const Text('Cerrar Sesión',
-                          style: TextStyle(color: Colors.white)),
+                      child: const Text(
+                        'Cerrar Sesión',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       onPressed: () async {
                         await widget.auth.signOut();
                         if (context.mounted) {
                           Navigator.of(context).pushNamedAndRemoveUntil(
-                              AppRoutes.preHome, (route) => false);
+                            AppRoutes.preHome,
+                            (route) => false,
+                          );
                         }
                       },
                     ),
@@ -92,8 +107,10 @@ class _ProfileViewState extends State<ProfileView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Información personal',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      const Text(
+                        'Información personal',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       const SizedBox(height: 10),
                       Row(
                         children: [
@@ -128,26 +145,29 @@ class _ProfileViewState extends State<ProfileView> {
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
                                 value: selectedCode,
-                                items: countries.map((country) {
-                                  return DropdownMenuItem<String>(
-                                    value: country['code'],
-                                    child: Row(
-                                      children: [
-                                        Image.asset(
-                                          country['flag']!,
-                                          width: 24,
-                                          height: 24,
+                                items:
+                                    countries.map((country) {
+                                      return DropdownMenuItem<String>(
+                                        value: country['code'],
+                                        child: Row(
+                                          children: [
+                                            Image.asset(
+                                              country['flag']!,
+                                              width: 24,
+                                              height: 24,
+                                            ),
+                                            const SizedBox(width: 8),
+                                            Text(
+                                              '${country['name']} ${country['code']}',
+                                            ),
+                                          ],
                                         ),
-                                        const SizedBox(width: 8),
-                                        Text(
-                                            '${country['name']} ${country['code']}'),
-                                      ],
-                                    ),
-                                  );
-                                }).toList(),
+                                      );
+                                    }).toList(),
                                 onChanged: (value) {
-                                  final country = countries
-                                      .firstWhere((c) => c['code'] == value);
+                                  final country = countries.firstWhere(
+                                    (c) => c['code'] == value,
+                                  );
                                   setState(() {
                                     selectedCode = value!;
                                     selectedFlag = country['flag']!;
@@ -167,8 +187,10 @@ class _ProfileViewState extends State<ProfileView> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      const Text('Cuenta',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      const Text(
+                        'Cuenta',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       const SizedBox(height: 10),
                       _buildTextField(
                         label: 'Email',

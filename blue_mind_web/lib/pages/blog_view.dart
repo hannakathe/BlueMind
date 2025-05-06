@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../widgets/app_navbar.dart';
 import '../widgets/app_header.dart';
-import 'document_detail_view.dart';
+import '../widgets/app_footer.dart';  // Asegúrate de importar tu AppFooter
+import 'document_format_view.dart';
 
 class BlogView extends StatefulWidget {
   const BlogView({super.key});
@@ -42,7 +43,6 @@ class _BlogViewState extends State<BlogView> {
 
   @override
   Widget build(BuildContext context) {
-    //final screenWidth = MediaQuery.of(context).size.width;
     final horizontalPadding = 125.0;
     final verticalPadding = 50.0;
 
@@ -59,7 +59,7 @@ class _BlogViewState extends State<BlogView> {
             const AppHeader(
               imagePath:
                   'https://images.unsplash.com/photo-1579361315655-2f164615b414?q=80&w=1920&auto=format&fit=crop',
-              title: 'Bienvenido a la librería de recursos educativos',
+              title: 'Bienvenido al Blog',
               subtitle: 'Explora nuestros documentos disponibles.',
               height: 300,
             ),
@@ -79,6 +79,8 @@ class _BlogViewState extends State<BlogView> {
                       return _buildTile(context, doc, cross, main);
                     }),
                   ),
+            const SizedBox(height: 30),  // Espacio entre el contenido y el footer
+            const AppFooter(),
           ],
         ),
       ),
@@ -154,23 +156,7 @@ class _BlogViewState extends State<BlogView> {
                       duration: const Duration(milliseconds: 200),
                     ),
                     const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.favorite_border, size: 18),
-                          onPressed: () {
-                            // TODO: Acción favoritos
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.download, size: 18),
-                          onPressed: () {
-                            // TODO: Acción descarga
-                          },
-                        ),
-                      ],
-                    ),
+                    
                   ],
                 ),
               ),
