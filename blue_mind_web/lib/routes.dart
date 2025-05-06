@@ -28,6 +28,7 @@ class AppRoutes {
     GetPage(name: preHome, page: () => PreHomeScreen()),
     GetPage(name: login, page: () => LoginView()),
     GetPage(name: register, page: () => RegisterView()),
+
     GetPage(name: home, page: () => HomeView(auth: Get.arguments['auth'])),
     GetPage(name: profile, page: () => ProfileView(auth: Get.arguments['auth'])),
     GetPage(name: blog, page: () => BlogView()),
@@ -38,3 +39,6 @@ class AppRoutes {
     
   ];
 }
+
+
+//ademas revisar logica de inicio de sesion facebook y google al iniciar la app debe ir al home 
