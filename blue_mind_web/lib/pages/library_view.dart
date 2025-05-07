@@ -4,7 +4,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../widgets/app_navbar.dart';
 import '../widgets/app_header.dart';
-import 'document_detail_view.dart';
+import 'document_format_view.dart';
+import '../widgets/app_footer.dart';  // Asegúrate de importar tu AppFooter
+
 
 class LibraryView extends StatefulWidget {
   const LibraryView({super.key});
@@ -79,6 +81,8 @@ class _LibraryViewState extends State<LibraryView> {
                       return _buildTile(context, doc, cross, main);
                     }),
                   ),
+            const SizedBox(height: 30),  // Espacio entre el contenido y el footer
+            const AppFooter(),
           ],
         ),
       ),
@@ -157,12 +161,6 @@ class _LibraryViewState extends State<LibraryView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        IconButton(
-                          icon: const Icon(Icons.favorite_border, size: 18),
-                          onPressed: () {
-                            // TODO: Acción favoritos
-                          },
-                        ),
                         IconButton(
                           icon: const Icon(Icons.download, size: 18),
                           onPressed: () {

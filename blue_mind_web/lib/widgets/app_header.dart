@@ -19,7 +19,7 @@ class AppHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: height,
-      width: double.infinity,
+      width: double.infinity,  // Esto hace que el header ocupe todo el ancho
       child: Stack(
         children: [
           // Imagen de fondo
@@ -29,12 +29,10 @@ class AppHeader extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          
           // Overlay semitransparente
           Container(
             color: Colors.black.withOpacity(0.3),
           ),
-          
           // Contenido de texto
           Positioned(
             left: 20,
