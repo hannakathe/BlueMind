@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'home_view.dart';
 
 class LoginView extends StatefulWidget {
@@ -16,6 +15,11 @@ class _LoginViewState extends State<LoginView> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? _user;
 
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  String _errorMessage = '';
+
   @override
   void initState() {
     super.initState();
@@ -24,6 +28,78 @@ class _LoginViewState extends State<LoginView> {
         _user = event;
       });
     });
+  }
+
+  Future<void> _loginUser() async {
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      setState(() {
+        _errorMessage = 'Por favor ingresa correo y contraseña.';
+      });
+      return;
+    }
+
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      setState(() {
+        _errorMessage = '';
+      });
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        _errorMessage = e.message ?? 'Error al iniciar sesión.';
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Error inesperado. Intenta de nuevo.';
+      });
+    }
+  }
+
+  void _resetPassword() async {
+    final email = emailController.text.trim();
+
+    if (email.isEmpty) {
+      setState(() {
+        _errorMessage = 'Por favor ingresa tu correo electrónico.';
+      });
+      return;
+    }
+
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text('Correo enviado'),
+          content: const Text('Revisa tu bandeja de entrada para restablecer la contraseña.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Aceptar'),
+            ),
+          ],
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        _errorMessage = e.message ?? 'No se pudo enviar el correo.';
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Ocurrió un error al intentar restablecer la contraseña.';
+      });
+    }
+  }
+
+  void _handleGoogleSignIn() async {
+    try {
+      GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
+      await _auth.signInWithPopup(googleAuthProvider);
+    } catch (e) {
+      // Manejo de error si deseas
+    }
   }
 
   @override
@@ -68,15 +144,29 @@ class _LoginViewState extends State<LoginView> {
                             ),
                           ),
                           const SizedBox(height: 20),
-                          _buildTextField(label: 'Correo electrónico', obscureText: false),
+                          _buildTextField(
+                            label: 'Correo electrónico',
+                            obscureText: false,
+                            controller: emailController,
+                          ),
                           const SizedBox(height: 15),
-                          _buildTextField(label: 'Contraseña', obscureText: true),
+                          _buildTextField(
+                            label: 'Contraseña',
+                            obscureText: true,
+                            controller: passwordController,
+                          ),
                           const SizedBox(height: 15),
+                          if (_errorMessage.isNotEmpty)
+                            Text(
+                              _errorMessage,
+                              style: const TextStyle(color: Colors.redAccent),
+                            ),
+                          const SizedBox(height: 10),
                           SizedBox(
-                            width: double.infinity,
+                            width: 400,
                             height: 50,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: _loginUser,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF150578),
                                 foregroundColor: Colors.white,
@@ -84,26 +174,23 @@ class _LoginViewState extends State<LoginView> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
-                              child: const Text(
-                                'Continuar',
-                                style: TextStyle(fontSize: 16),
-                              ),
+                              child: const Text('Continuar', style: TextStyle(fontSize: 16)),
                             ),
                           ),
                           const SizedBox(height: 15),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: _resetPassword,
                             child: const Text(
                               '¿Olvidó su contraseña?',
                               style: TextStyle(color: Colors.white70),
                             ),
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 20),
                           const Text(
                             'o',
                             style: TextStyle(color: Colors.white70),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 15),
                           _buildSocialButton(
                             icon: FontAwesomeIcons.google,
                             text: 'Iniciar sesión con Google',
@@ -119,10 +206,15 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget _buildTextField({required String label, required bool obscureText}) {
+  Widget _buildTextField({
+    required String label,
+    required bool obscureText,
+    required TextEditingController controller,
+  }) {
     return SizedBox(
       height: 50,
       child: TextField(
+        controller: controller,
         obscureText: obscureText,
         style: const TextStyle(color: Colors.white),
         cursorColor: Colors.white,
@@ -161,14 +253,5 @@ class _LoginViewState extends State<LoginView> {
         label: Text(text, style: const TextStyle(color: Colors.white)),
       ),
     );
-  }
-
-  void _handleGoogleSignIn() {
-    try {
-      GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
-      _auth.signInWithPopup(googleAuthProvider);
-    } catch (e) {
-      // Manejo de error
-    }
   }
 }
