@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../routes.dart';
+//import '../routes.dart';
 import 'home_view.dart';
 
 class RegisterView extends StatefulWidget {
