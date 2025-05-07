@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-//import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -18,6 +16,11 @@ class _LoginViewState extends State<LoginView> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? _user;
 
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  String _errorMessage = '';
+
   @override
   void initState() {
     super.initState();
@@ -28,120 +31,211 @@ class _LoginViewState extends State<LoginView> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _user != null
-          ? HomeView(
-              auth:
-                  _auth) // Muestra la vista de perfil si el usuario está autenticado
-          : Stack(
-              fit: StackFit.expand,
-              children: [
-                Image.network(
-                  'https://images.unsplash.com/photo-1475372674317-8003c861cb6a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fA%3D%3D',
-                  fit: BoxFit.cover,
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ClipOval(
-                          child: Image(
-                            image: AssetImage(
-                              'assets/logoW-invert.png',
-                            ),
-                            height: 300,
-                            width: 300,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        const SizedBox(height: 15),
-                        Text(
-                          'BlueMind',
-                          style: GoogleFonts.montserrat(
-                            color: Colors.white,
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
+  Future<void> _loginUser() async {
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
 
-                        // Campo de correo
-                        _buildTextField(
-                            label: 'Correo electrónico', obscureText: false),
-                        const SizedBox(height: 15),
+    if (email.isEmpty || password.isEmpty) {
+      setState(() {
+        _errorMessage = 'Por favor ingresa correo y contraseña.';
+      });
+      return;
+    }
 
-                        // Campo de contraseña
-                        _buildTextField(label: 'Contraseña', obscureText: true),
-                        const SizedBox(height: 15),
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      setState(() {
+        _errorMessage = '';
+      });
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        _errorMessage = e.message ?? 'Error al iniciar sesión.';
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Error inesperado. Intenta de nuevo.';
+      });
+    }
+  }
 
-                        // Botón de Continuar
-                        SizedBox(
-                          width: 400,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF150578),
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            child: const Text(
-                              'Continuar',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 15),
-                        TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            '¿Olvidó su contraseña?',
-                            style: TextStyle(color: Colors.white70),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          'o',
-                          style: TextStyle(color: Colors.white70),
-                        ),
-                        const SizedBox(height: 15),
+  void _resetPassword() async {
+    final email = emailController.text.trim();
 
-                      
-                        const SizedBox(height: 10),
+    if (email.isEmpty) {
+      setState(() {
+        _errorMessage = 'Por favor ingresa tu correo electrónico.';
+      });
+      return;
+    }
 
-                        // Botón de Google
-                        _buildSocialButton(
-                          icon: FontAwesomeIcons.google,
-                          text: 'Iniciar sesión con Google',
-                          onPressed: _handleGoogleSignIn,
-                        ),
-                      ],
-                    ),
-                  ),
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      showDialog(
+        context: context,
+        builder:
+            (_) => AlertDialog(
+              title: const Text('Correo enviado'),
+              content: const Text(
+                'Revisa tu bandeja de entrada para restablecer la contraseña.',
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Aceptar'),
                 ),
               ],
             ),
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        _errorMessage = e.message ?? 'No se pudo enviar el correo.';
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage =
+            'Ocurrió un error al intentar restablecer la contraseña.';
+      });
+    }
+  }
+
+  void _handleGoogleSignIn() {
+    try {
+      GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
+      _auth.signInWithPopup(googleAuthProvider);
+    } catch (e) {}
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body:
+          _user != null
+              ? HomeView(auth: _auth)
+              : Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.network(
+                    'https://images.unsplash.com/photo-1475372674317-8003c861cb6a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fHx8fA%3D%3D',
+                    fit: BoxFit.cover,
+                  ),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ClipOval(
+                            child: Image.asset(
+                              'assets/logoW-invert.png',
+                              height: 300,
+                              width: 300,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          Text(
+                            'BlueMind',
+                            style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+
+                          // Campo de correo
+                          _buildTextField(
+                            label: 'Correo electrónico',
+                            obscureText: false,
+                            controller: emailController,
+                          ),
+                          const SizedBox(height: 15),
+
+                          // Campo de contraseña
+                          _buildTextField(
+                            label: 'Contraseña',
+                            obscureText: true,
+                            controller: passwordController,
+                          ),
+                          const SizedBox(height: 15),
+
+                          // Mensaje de error
+                          if (_errorMessage.isNotEmpty)
+                            Text(
+                              _errorMessage,
+                              style: const TextStyle(color: Colors.redAccent),
+                            ),
+
+                          const SizedBox(height: 10),
+
+                          // Botón de Continuar
+                          SizedBox(
+                            width: 400,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: _loginUser,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF150578),
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: const Text(
+                                'Continuar',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(height: 15),
+
+                          // Botón Olvidó contraseña
+                          TextButton(
+                            onPressed: _resetPassword,
+                            child: const Text(
+                              '¿Olvidó su contraseña?',
+                              style: TextStyle(color: Colors.white70),
+                            ),
+                          ),
+
+                          const SizedBox(height: 20),
+                          const Text(
+                            'o',
+                            style: TextStyle(color: Colors.white70),
+                          ),
+                          const SizedBox(height: 15),
+
+                          // Botón Google
+                          _buildSocialButton(
+                            icon: FontAwesomeIcons.google,
+                            text: 'Iniciar sesión con Google',
+                            onPressed: _handleGoogleSignIn,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
     );
   }
 
-  // Widget para los campos de texto
-  Widget _buildTextField({required String label, required bool obscureText}) {
+  Widget _buildTextField({
+    required String label,
+    required bool obscureText,
+    required TextEditingController controller,
+  }) {
     return SizedBox(
       width: 400,
       height: 50,
       child: TextField(
+        controller: controller,
         obscureText: obscureText,
         style: const TextStyle(color: Colors.white),
         cursorColor: Colors.white,
         decoration: InputDecoration(
           filled: true,
-          // ignore: deprecated_member_use
           fillColor: Colors.white.withOpacity(0.2),
           labelText: label,
           labelStyle: const TextStyle(color: Colors.white70),
@@ -154,7 +248,6 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  // Widget para los botones de redes sociales
   Widget _buildSocialButton({
     required IconData icon,
     required String text,
@@ -166,23 +259,15 @@ class _LoginViewState extends State<LoginView> {
       child: ElevatedButton.icon(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          // ignore: deprecated_member_use
-          backgroundColor: Colors.white.withOpacity(0.3), // Botón translúcido
+          backgroundColor: Colors.white.withOpacity(0.3),
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        icon: Icon(icon, color: Colors.white), // Ícono en blanco
+        icon: Icon(icon, color: Colors.white),
         label: Text(text, style: const TextStyle(color: Colors.white)),
       ),
     );
-  }
-
-  void _handleGoogleSignIn() {
-    try {
-      GoogleAuthProvider _googleAuthProvider = GoogleAuthProvider();
-      _auth.signInWithPopup(_googleAuthProvider);
-    } catch (e) {}
   }
 }

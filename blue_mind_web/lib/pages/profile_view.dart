@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../routes.dart';
 import '../widgets/app_navbar.dart';
 
@@ -14,6 +15,7 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
   User? get user => widget.auth.currentUser;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   final List<Map<String, String>> countries = [
     {'name': 'Colombia', 'code': '+57', 'flag': 'assets/flags/co.png'},
@@ -26,10 +28,14 @@ class _ProfileViewState extends State<ProfileView> {
   String selectedCode = '+57';
   String selectedFlag = 'assets/flags/co.png';
   String selectedCountry = 'Colombia';
+
   bool obscureOldPassword = true;
   bool obscureNewPassword = true;
 
-  // Controladores
+  int failedPasswordAttempts = 0;
+  bool isBlocked = false;
+  DateTime? unblockTime;
+
   final nameController = TextEditingController();
   final lastNameController = TextEditingController();
   final usernameController = TextEditingController();
@@ -37,6 +43,92 @@ class _ProfileViewState extends State<ProfileView> {
   final emailController = TextEditingController();
   final oldPasswordController = TextEditingController();
   final newPasswordController = TextEditingController();
+
+  Future<void> saveProfileChanges() async {
+    final name = nameController.text.trim();
+
+    if (name.isEmpty || name.length > 50) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Nombre no válido")));
+      return;
+    }
+
+    try {
+      await user!.updateDisplayName(name);
+      await firestore.collection('users').doc(user!.uid).update({'name': name});
+
+      setState(() {});
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Perfil actualizado")));
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Error: $e")));
+    }
+  }
+
+  Future<void> changePassword() async {
+    if (isBlocked && DateTime.now().isBefore(unblockTime!)) {
+      final remaining = unblockTime!.difference(DateTime.now()).inMinutes;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Bloqueado. Espera $remaining minutos")),
+      );
+      return;
+    }
+
+    final oldPassword = oldPasswordController.text.trim();
+    final newPassword = newPasswordController.text.trim();
+
+    try {
+      final cred = EmailAuthProvider.credential(
+        email: user!.email!,
+        password: oldPassword,
+      );
+      await user!.reauthenticateWithCredential(cred);
+      await user!.updatePassword(newPassword);
+      failedPasswordAttempts = 0;
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Contraseña actualizada")));
+    } catch (e) {
+      failedPasswordAttempts++;
+      if (failedPasswordAttempts >= 5) {
+        isBlocked = true;
+        unblockTime = DateTime.now().add(const Duration(minutes: 10));
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Contraseña anterior incorrecta")),
+      );
+    }
+  }
+
+  Future<void> deleteAccount() async {
+    final email = emailController.text.trim();
+    final password = oldPasswordController.text.trim();
+
+    try {
+      final cred = EmailAuthProvider.credential(
+        email: email,
+        password: password,
+      );
+      await user!.reauthenticateWithCredential(cred);
+      await firestore.collection('users').doc(user!.uid).delete();
+      await user!.delete();
+
+      if (context.mounted) {
+        Navigator.of(
+          context,
+        ).pushNamedAndRemoveUntil(AppRoutes.preHome, (route) => false);
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Error eliminando cuenta: $e")));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +147,7 @@ class _ProfileViewState extends State<ProfileView> {
                     const CircleAvatar(
                       radius: 70,
                       backgroundColor: Colors.grey,
-                      child: Icon(Icons.photo_camera,
-                          size: 30, color: Colors.white),
+                      child: Icon(Icons.person, size: 30, color: Colors.white),
                     ),
                     const SizedBox(height: 10),
                     Text(
@@ -67,21 +158,49 @@ class _ProfileViewState extends State<ProfileView> {
                     const SizedBox(height: 10),
                     TextButton(
                       onPressed: () {
-                        // Acción de eliminar cuenta
+                        showDialog(
+                          context: context,
+                          builder:
+                              (_) => AlertDialog(
+                                title: const Text("¿Eliminar cuenta?"),
+                                content: const Text(
+                                  "Esto eliminará tu cuenta y datos. ¿Deseas continuar?",
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Text("Cancelar"),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      deleteAccount();
+                                    },
+                                    child: const Text("Eliminar"),
+                                  ),
+                                ],
+                              ),
+                        );
                       },
-                      child: const Text('Eliminar Cuenta',
-                          style: TextStyle(color: Colors.red)),
+                      child: const Text(
+                        'Eliminar Cuenta',
+                        style: TextStyle(color: Colors.red),
+                      ),
                     ),
                     const SizedBox(height: 10),
                     MaterialButton(
                       color: Colors.blueAccent,
-                      child: const Text('Cerrar Sesión',
-                          style: TextStyle(color: Colors.white)),
+                      child: const Text(
+                        'Cerrar Sesión',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       onPressed: () async {
                         await widget.auth.signOut();
                         if (context.mounted) {
                           Navigator.of(context).pushNamedAndRemoveUntil(
-                              AppRoutes.preHome, (route) => false);
+                            AppRoutes.preHome,
+                            (route) => false,
+                          );
                         }
                       },
                     ),
@@ -92,8 +211,10 @@ class _ProfileViewState extends State<ProfileView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Información personal',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      const Text(
+                        'Información personal',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       const SizedBox(height: 10),
                       Row(
                         children: [
@@ -122,32 +243,22 @@ class _ProfileViewState extends State<ProfileView> {
                         children: [
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
                                 value: selectedCode,
-                                items: countries.map((country) {
-                                  return DropdownMenuItem<String>(
-                                    value: country['code'],
-                                    child: Row(
-                                      children: [
-                                        Image.asset(
-                                          country['flag']!,
-                                          width: 24,
-                                          height: 24,
+                                items:
+                                    countries.map((country) {
+                                      return DropdownMenuItem<String>(
+                                        value: country['code'],
+                                        child: Text(
+                                          '${country['name']} ${country['code']}',
                                         ),
-                                        const SizedBox(width: 8),
-                                        Text(
-                                            '${country['name']} ${country['code']}'),
-                                      ],
-                                    ),
-                                  );
-                                }).toList(),
+                                      );
+                                    }).toList(),
                                 onChanged: (value) {
-                                  final country = countries
-                                      .firstWhere((c) => c['code'] == value);
+                                  final country = countries.firstWhere(
+                                    (c) => c['code'] == value,
+                                  );
                                   setState(() {
                                     selectedCode = value!;
                                     selectedFlag = country['flag']!;
@@ -167,8 +278,15 @@ class _ProfileViewState extends State<ProfileView> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      const Text('Cuenta',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      ElevatedButton(
+                        onPressed: saveProfileChanges,
+                        child: const Text("Guardar Cambios"),
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        'Cuenta',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       const SizedBox(height: 10),
                       _buildTextField(
                         label: 'Email',
@@ -218,6 +336,11 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: changePassword,
+                        child: const Text("Actualizar Contraseña"),
+                      ),
                     ],
                   ),
                 ),
@@ -229,7 +352,6 @@ class _ProfileViewState extends State<ProfileView> {
     );
   }
 
-  /// Widget reutilizable para campos de texto
   Widget _buildTextField({
     required String label,
     bool obscureText = false,
@@ -255,7 +377,7 @@ class _ProfileViewState extends State<ProfileView> {
           labelStyle: TextStyle(color: textColor.withOpacity(0.7)),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: Colors.black),
+            borderSide: const BorderSide(color: Colors.black),
           ),
           suffixIcon: suffixIcon,
         ),
