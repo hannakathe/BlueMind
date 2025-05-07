@@ -4,7 +4,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../widgets/app_navbar.dart';
 import '../widgets/app_header.dart';
-import 'document_detail_view.dart';
+import 'document_format_view.dart';
+import '../widgets/app_footer.dart';  // Asegúrate de importar tu AppFooter
+
 
 class AlbumView extends StatefulWidget {
   const AlbumView({super.key});
@@ -65,7 +67,7 @@ class _AlbumViewState extends State<AlbumView> {
             const AppHeader(
               imagePath:
                   'https://images.unsplash.com/photo-1579361315655-2f164615b414?q=80&w=1920&auto=format&fit=crop',
-              title: 'Bienvenido a la librería de recursos educativos',
+              title: 'Bienvenido al Álbum de Especies',
               subtitle: 'Explora nuestros documentos disponibles.',
               height: 300,
             ),
@@ -80,6 +82,8 @@ class _AlbumViewState extends State<AlbumView> {
                       return _buildTile(context, documents[index]);
                     }),
                   ),
+            const SizedBox(height: 30),  // Espacio entre el contenido y el footer
+            const AppFooter(),
           ],
         ),
       ),
@@ -154,12 +158,6 @@ class _AlbumViewState extends State<AlbumView> {
                         icon: const Icon(Icons.favorite_border, size: 18),
                         onPressed: () {
                           // TODO: Acción favoritos
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.download, size: 18),
-                        onPressed: () {
-                          // TODO: Acción descarga
                         },
                       ),
                     ],

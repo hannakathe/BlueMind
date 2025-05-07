@@ -17,11 +17,12 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? _user;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    // Escucha cambios en el estado de autenticación
     _auth.authStateChanges().listen((user) {
       setState(() {
         _user = user;
@@ -29,8 +30,27 @@ class _RegisterViewState extends State<RegisterView> {
     });
   }
 
+  void _registerWithEmail() async {
+    try {
+      await _auth.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      String message = 'Error desconocido';
+      if (e.code == 'email-already-in-use') {
+        message = 'El correo ya está registrado.';
+      } else if (e.message != null) {
+        message = e.message!;
+      }
+      Get.snackbar('Registro fallido', message, backgroundColor: Colors.red, colorText: Colors.white);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: _user != null
           ? HomeView(auth: _auth)
@@ -42,71 +62,73 @@ class _RegisterViewState extends State<RegisterView> {
                   fit: BoxFit.cover,
                 ),
                 Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ClipOval(
-                          child: Image.asset(
-                            'assets/logoW-invert.png',
-                            height: 300,
-                            width: 300,
-                            fit: BoxFit.cover,
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: screenWidth > 500 ? 400 : screenWidth * 0.9,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ClipOval(
+                            child: Image.asset(
+                              'assets/logoW-invert.png',
+                              height: 300,
+                              width: 300,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 15),
-                        Text(
-                          'BlueMind',
-                          style: GoogleFonts.montserrat(
-                            color: Colors.white,
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
+                          const SizedBox(height: 15),
+                          Text(
+                            'BlueMind',
+                            style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        _buildTextField(
-                          label: 'Ingresar correo electrónico',
-                          obscureText: false,
-                        ),
-                        const SizedBox(height: 15),
-                        _buildTextField(
-                          label: 'Ingresar contraseña',
-                          obscureText: true,
-                        ),
-                        const SizedBox(height: 15),
-                        SizedBox(
-                          width: 400,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              // TODO: implementar createUserWithEmailAndPassword
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF150578),
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
+                          const SizedBox(height: 20),
+                          _buildTextField(
+                            label: 'Ingresar correo electrónico',
+                            obscureText: false,
+                            controller: emailController,
+                          ),
+                          const SizedBox(height: 15),
+                          _buildTextField(
+                            label: 'Ingresar contraseña',
+                            obscureText: true,
+                            controller: passwordController,
+                          ),
+                          const SizedBox(height: 15),
+                          SizedBox(
+                            width: double.infinity,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: _registerWithEmail,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF150578),
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: const Text(
+                                'Continuar',
+                                style: TextStyle(fontSize: 16),
                               ),
                             ),
-                            child: const Text(
-                              'Continuar',
-                              style: TextStyle(fontSize: 16),
-                            ),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          'o',
-                          style: TextStyle(color: Colors.white70),
-                        ),
-                        const SizedBox(height: 15),
-                        _buildSocialButton(
-                          icon: FontAwesomeIcons.google,
-                          text: 'Registrarse con Google',
-                          onPressed: _handleGoogleSignIn,
-                        ),
-                      ],
+                          const SizedBox(height: 20),
+                          const Text('o', style: TextStyle(color: Colors.white70)),
+                          const SizedBox(height: 15),
+                          _buildSocialButton(
+                            icon: FontAwesomeIcons.google,
+                            text: 'Registrarse con Google',
+                            onPressed: _handleGoogleSignIn,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -115,11 +137,15 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Widget _buildTextField({required String label, required bool obscureText}) {
+  Widget _buildTextField({
+    required String label,
+    required bool obscureText,
+    TextEditingController? controller,
+  }) {
     return SizedBox(
-      width: 400,
       height: 50,
       child: TextField(
+        controller: controller,
         obscureText: obscureText,
         style: const TextStyle(color: Colors.white),
         cursorColor: Colors.white,
@@ -143,8 +169,8 @@ class _RegisterViewState extends State<RegisterView> {
     required VoidCallback onPressed,
   }) {
     return SizedBox(
-      width: 400,
       height: 50,
+      width: double.infinity,
       child: ElevatedButton.icon(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
