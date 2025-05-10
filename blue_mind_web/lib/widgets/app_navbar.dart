@@ -11,8 +11,8 @@ class ResponsiveScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppNavbar(),
-      endDrawer: const AppSidebar(), // Sidebar que aparece en pantallas pequeñas
-      body: Center(
+      drawer: const AppSidebar(),
+      body: const Center(
         child: Text('Contenido principal aquí'),
       ),
     );
@@ -37,15 +37,18 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
               ClipOval(
                 child: Image.asset(
                   'assets/logoW.png',
-                  height: 50,
-                  width: 50,
+                  height: 40,
+                  width: 40,
                   fit: BoxFit.cover,
                 ),
               ),
               const SizedBox(width: 8),
-              Text(
-                'BlueMind',
-                style: AppTypography.blueMindtitle,
+              Flexible(
+                child: Text(
+                  'BlueMind',
+                  style: AppTypography.blueMindtitle,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ),
@@ -54,26 +57,33 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
                   Builder(
                     builder: (context) => IconButton(
                       icon: const Icon(Icons.menu, color: Colors.black),
-                      onPressed: () => Scaffold.of(context).openEndDrawer(),
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
                     ),
                   ),
                 ]
               : [
-                  Row(
-                    children: [
-                      _buildNavLink('Inicio', AppRoutes.home, arguments: {
-                        'auth': FirebaseAuth.instance,
-                      }),
-                      _buildNavLink('Blog', AppRoutes.blog),
-                      _buildNavLink('Recursos\nEducativos', AppRoutes.library),
-                      _buildNavLink('Álbum de\nEspecies', AppRoutes.album),
-                      _buildNavLink('Mapa\nInteractivo', AppRoutes.map),
-                      const SizedBox(width: 10),
-                      _buildSearchBox(),
-                      _buildProfileButton(),
-                      const SizedBox(width: 10),
-                    ],
-                  ),
+                  Flexible(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          _buildNavLink('Inicio', AppRoutes.home, arguments: {
+                            'auth': FirebaseAuth.instance,
+                          }),
+                          _buildNavLink('Blog', AppRoutes.blog),
+                          _buildNavLink('Recursos\nEducativos', AppRoutes.library),
+                          _buildNavLink('Álbum de\nEspecies', AppRoutes.album),
+                          _buildNavLink('Mapa\nInteractivo', AppRoutes.map),
+                          const SizedBox(width: 10),
+                          _buildSearchBox(),
+                          _buildProfileButton(),
+                          const SizedBox(width: 10),
+                        ],
+                      ),
+                    ),
+                  )
                 ],
         );
       },
@@ -94,7 +104,7 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
 
   Widget _buildSearchBox() {
     return SizedBox(
-      width: 200,
+      width: 180,
       height: 35,
       child: TextField(
         decoration: InputDecoration(
@@ -142,14 +152,14 @@ class AppSidebar extends StatelessWidget {
               style: AppTypography.h2SubtitulosImportantes.copyWith(color: Colors.white),
             ),
           ),
-          _buildDrawerItem('Inicio', AppRoutes.home, {
+          _buildDrawerItem(context, 'Inicio', AppRoutes.home, {
             'auth': FirebaseAuth.instance,
           }),
-          _buildDrawerItem('Blog', AppRoutes.blog),
-          _buildDrawerItem('Recursos Educativos', AppRoutes.library),
-          _buildDrawerItem('Álbum de Especies', AppRoutes.album),
-          _buildDrawerItem('Mapa Interactivo', AppRoutes.map),
-          _buildDrawerItem('Perfil', AppRoutes.profile, {
+          _buildDrawerItem(context, 'Blog', AppRoutes.blog),
+          _buildDrawerItem(context, 'Recursos Educativos', AppRoutes.library),
+          _buildDrawerItem(context, 'Álbum de Especies', AppRoutes.album),
+          _buildDrawerItem(context, 'Mapa Interactivo', AppRoutes.map),
+          _buildDrawerItem(context, 'Perfil', AppRoutes.profile, {
             'auth': FirebaseAuth.instance,
           }),
         ],
@@ -157,13 +167,13 @@ class AppSidebar extends StatelessWidget {
     );
   }
 
-  Widget _buildDrawerItem(String title, String route,
+  Widget _buildDrawerItem(BuildContext context, String title, String route,
       [Map<String, dynamic>? arguments]) {
     return ListTile(
       title: Text(title),
       onTap: () {
         Get.toNamed(route, arguments: arguments);
-        Get.back(); // Cierra el drawer
+        Navigator.of(context).pop(); // ← ya no da error
       },
     );
   }

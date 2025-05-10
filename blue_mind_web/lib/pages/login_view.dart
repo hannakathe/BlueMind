@@ -41,75 +41,77 @@ class _LoginViewState extends State<LoginView> {
                   fit: BoxFit.cover,
                 ),
                 Center(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: screenWidth > 500 ? 400 : screenWidth * 0.9,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ClipOval(
-                            child: Image.asset(
-                              'assets/logoW-invert.png',
-                              height: 300,
-                              width: 300,
-                              fit: BoxFit.cover,
+                  child: ScrollConfiguration(
+                    behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: screenWidth > 500 ? 400 : screenWidth * 0.9,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ClipOval(
+                              child: Image.asset(
+                                'assets/logoW-invert.png',
+                                height: 250,
+                                width: 250,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 15),
-                          Text(
-                            'BlueMind',
-                            style: GoogleFonts.montserrat(
-                              color: Colors.white,
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
+                            Text(
+                              'BlueMind',
+                              style: GoogleFonts.montserrat(
+                                color: Colors.white,
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 20),
-                          _buildTextField(label: 'Correo electrónico', obscureText: false),
-                          const SizedBox(height: 15),
-                          _buildTextField(label: 'Contraseña', obscureText: true),
-                          const SizedBox(height: 15),
-                          SizedBox(
-                            width: double.infinity,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF150578),
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                            const SizedBox(height: 20),
+                            _buildTextField(label: 'Correo electrónico', obscureText: false),
+                            const SizedBox(height: 15),
+                            _buildTextField(label: 'Contraseña', obscureText: true),
+                            const SizedBox(height: 15),
+                            SizedBox(
+                              width: double.infinity,
+                              height: 50,
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF150578),
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'Continuar',
+                                  style: TextStyle(fontSize: 16),
                                 ),
                               ),
+                            ),
+                            const SizedBox(height: 15),
+                            TextButton(
+                              onPressed: () {},
                               child: const Text(
-                                'Continuar',
-                                style: TextStyle(fontSize: 16),
+                                '¿Olvidó su contraseña?',
+                                style: TextStyle(color: Colors.white70),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 15),
-                          TextButton(
-                            onPressed: () {},
-                            child: const Text(
-                              '¿Olvidó su contraseña?',
+                            const SizedBox(height: 5),
+                            const Text(
+                              'o',
                               style: TextStyle(color: Colors.white70),
                             ),
-                          ),
-                          const SizedBox(height: 15),
-                          const Text(
-                            'o',
-                            style: TextStyle(color: Colors.white70),
-                          ),
-                          const SizedBox(height: 20),
-                          _buildSocialButton(
-                            icon: FontAwesomeIcons.google,
-                            text: 'Iniciar sesión con Google',
-                            onPressed: _handleGoogleSignIn,
-                          ),
-                        ],
+                            const SizedBox(height: 15),
+                            _buildSocialButton(
+                              icon: FontAwesomeIcons.google,
+                              text: 'Iniciar sesión con Google',
+                              onPressed: _handleGoogleSignIn,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

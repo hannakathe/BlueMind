@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-//import '../routes.dart';
 import 'home_view.dart';
 
 class RegisterView extends StatefulWidget {
@@ -62,72 +61,74 @@ class _RegisterViewState extends State<RegisterView> {
                   fit: BoxFit.cover,
                 ),
                 Center(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: screenWidth > 500 ? 400 : screenWidth * 0.9,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ClipOval(
-                            child: Image.asset(
-                              'assets/logoW-invert.png',
-                              height: 300,
-                              width: 300,
-                              fit: BoxFit.cover,
+                  child: ScrollConfiguration(
+                    behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: screenWidth > 500 ? 400 : screenWidth * 0.9,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ClipOval(
+                              child: Image.asset(
+                                'assets/logoW-invert.png',
+                                height: 250,
+                                width: 250,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 15),
-                          Text(
-                            'BlueMind',
-                            style: GoogleFonts.montserrat(
-                              color: Colors.white,
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
+                            const SizedBox(height: 15),
+                            Text(
+                              'BlueMind',
+                              style: GoogleFonts.montserrat(
+                                color: Colors.white,
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 20),
-                          _buildTextField(
-                            label: 'Ingresar correo electrónico',
-                            obscureText: false,
-                            controller: emailController,
-                          ),
-                          const SizedBox(height: 15),
-                          _buildTextField(
-                            label: 'Ingresar contraseña',
-                            obscureText: true,
-                            controller: passwordController,
-                          ),
-                          const SizedBox(height: 15),
-                          SizedBox(
-                            width: double.infinity,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: _registerWithEmail,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF150578),
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                            _buildTextField(
+                              label: 'Ingresar correo electrónico',
+                              obscureText: false,
+                              controller: emailController,
+                            ),
+                            const SizedBox(height: 15),
+                            _buildTextField(
+                              label: 'Ingresar contraseña',
+                              obscureText: true,
+                              controller: passwordController,
+                            ),
+                            const SizedBox(height: 15),
+                            SizedBox(
+                              width: double.infinity,
+                              height: 50,
+                              child: ElevatedButton(
+                                onPressed: _registerWithEmail,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF150578),
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'Continuar',
+                                  style: TextStyle(fontSize: 16),
                                 ),
                               ),
-                              child: const Text(
-                                'Continuar',
-                                style: TextStyle(fontSize: 16),
-                              ),
                             ),
-                          ),
-                          const SizedBox(height: 20),
-                          const Text('o', style: TextStyle(color: Colors.white70)),
-                          const SizedBox(height: 15),
-                          _buildSocialButton(
-                            icon: FontAwesomeIcons.google,
-                            text: 'Registrarse con Google',
-                            onPressed: _handleGoogleSignIn,
-                          ),
-                        ],
+                            const SizedBox(height: 15),
+                            const Text('o', style: TextStyle(color: Colors.white70)),
+                            const SizedBox(height: 15),
+                            _buildSocialButton(
+                              icon: FontAwesomeIcons.google,
+                              text: 'Registrarse con Google',
+                              onPressed: _handleGoogleSignIn,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
