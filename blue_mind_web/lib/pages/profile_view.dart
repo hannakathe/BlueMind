@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../routes.dart';
 import '../widgets/app_navbar.dart';
+import '../widgets/app_header.dart';
+import '../widgets/app_footer.dart';
 
 class ProfileView extends StatefulWidget {
   final FirebaseAuth auth;
@@ -29,7 +31,6 @@ class _ProfileViewState extends State<ProfileView> {
   bool obscureOldPassword = true;
   bool obscureNewPassword = true;
 
-  // Controladores
   final nameController = TextEditingController();
   final lastNameController = TextEditingController();
   final usernameController = TextEditingController();
@@ -52,6 +53,11 @@ class _ProfileViewState extends State<ProfileView> {
         ),
         child: ListView(
           children: [
+            AppHeader(
+              imagePath: 'https://images.unsplash.com/photo-1650633908245-f0b552e8f240?q=80&w=1933&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              title: 'Perfil',
+              subtitle: 'Gestiona tu información',
+            ),
             const SizedBox(height: 20),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,25 +151,24 @@ class _ProfileViewState extends State<ProfileView> {
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
                                 value: selectedCode,
-                                items:
-                                    countries.map((country) {
-                                      return DropdownMenuItem<String>(
-                                        value: country['code'],
-                                        child: Row(
-                                          children: [
-                                            Image.asset(
-                                              country['flag']!,
-                                              width: 24,
-                                              height: 24,
-                                            ),
-                                            const SizedBox(width: 8),
-                                            Text(
-                                              '${country['name']} ${country['code']}',
-                                            ),
-                                          ],
+                                items: countries.map((country) {
+                                  return DropdownMenuItem<String>(
+                                    value: country['code'],
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                          country['flag']!,
+                                          width: 24,
+                                          height: 24,
                                         ),
-                                      );
-                                    }).toList(),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          '${country['name']} ${country['code']}',
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }).toList(),
                                 onChanged: (value) {
                                   final country = countries.firstWhere(
                                     (c) => c['code'] == value,
@@ -245,6 +250,8 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
               ],
             ),
+            const SizedBox(height: 40),
+            const AppFooter(),
           ],
         ),
       ),

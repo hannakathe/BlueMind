@@ -21,7 +21,7 @@ class MapView extends StatelessWidget {
               vertical: verticalPadding,
             ),
             child: AppHeader(
-              imagePath: 'https://via.placeholder.com/600x250',
+              imagePath: 'https://images.unsplash.com/photo-1665150922942-9f48fc21005f?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
               title: 'Mapa',
               subtitle: 'Explora la ubicación',
             ),

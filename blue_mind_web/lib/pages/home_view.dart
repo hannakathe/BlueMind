@@ -1,7 +1,8 @@
+// lib/views/home_view.dart
 import 'package:flutter/material.dart';
 import '../widgets/app_navbar.dart';
 import '../widgets/app_header.dart';
-import '../widgets/app_footer.dart'; // Importa AppFooter
+import '../widgets/app_footer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeView extends StatelessWidget {
@@ -24,7 +25,14 @@ class HomeView extends StatelessWidget {
               vertical: verticalPadding,
             ),
             child: AppHeader(
-              imagePath: 'https://via.placeholder.com/600x250',
+              imagePaths: [
+                'https://images.unsplash.com/photo-1568430462989-44163eb1752f?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1618578906891-86e569eefe7e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1596952687581-9bd164398339?q=80&w=2008&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1695231054363-f149bb54841e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1665150922942-9f48fc21005f?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1650633908245-f0b552e8f240?q=80&w=1933&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              ],
               title: '¡Hola!',
               subtitle: 'Bienvenida, ${auth.currentUser?.email ?? 'Usuario'}',
             ),
@@ -36,10 +44,10 @@ class HomeView extends StatelessWidget {
               style: const TextStyle(fontSize: 18),
             ),
           ),
-          const Expanded(child: SizedBox()), // Esto asegura que el footer quede al final
+          const Expanded(child: SizedBox()),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-            child: const AppFooter(), // Ahora con el padding aplicado
+            child: const AppFooter(),
           ),
         ],
       ),
