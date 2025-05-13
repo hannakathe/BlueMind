@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../routes.dart';
 import '../theme/app_colors.dart';
-
+import '../theme/app_typography.dart';
 import '../theme/theme_controller.dart';
 
 class PreHomeScreen extends StatelessWidget {
@@ -31,14 +31,11 @@ class PreHomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Text(
-                "BlueMind",
-                style: TextStyle(
-                  color: isDarkMode
-                      ? AppColors.textColorDark
-                      : AppColors.textColorLight,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              Flexible(
+                child: Text(
+                  'BlueMind',
+                  style: AppTypography.blueMindtitle,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],

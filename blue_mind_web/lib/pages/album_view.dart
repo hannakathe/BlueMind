@@ -5,8 +5,7 @@ import 'dart:convert';
 import '../widgets/app_navbar.dart';
 import '../widgets/app_header.dart';
 import 'document_format_view.dart';
-import '../widgets/app_footer.dart';  // Asegúrate de importar tu AppFooter
-
+import '../widgets/app_footer.dart';
 
 class AlbumView extends StatefulWidget {
   const AlbumView({super.key});
@@ -57,13 +56,10 @@ class _AlbumViewState extends State<AlbumView> {
     return Scaffold(
       appBar: const AppNavbar(),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(
-          horizontal: horizontalPadding,
-          vertical: verticalPadding,
-        ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Header sin padding
             const AppHeader(
               imagePath:
                   'https://images.unsplash.com/photo-1695231054363-f149bb54841e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -71,18 +67,33 @@ class _AlbumViewState extends State<AlbumView> {
               subtitle: 'Explora nuestros documentos disponibles.',
               height: 300,
             ),
-            const SizedBox(height: 30),
-            isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : StaggeredGrid.count(
-                    crossAxisCount: crossAxisCount,
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 20,
-                    children: List.generate(documents.length, (index) {
-                      return _buildTile(context, documents[index]);
-                    }),
-                  ),
-            const SizedBox(height: 30),  // Espacio entre el contenido y el footer
+
+            // Contenido con padding
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: horizontalPadding,
+                vertical: verticalPadding,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 30),
+                  isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : StaggeredGrid.count(
+                          crossAxisCount: crossAxisCount,
+                          mainAxisSpacing: 20,
+                          crossAxisSpacing: 20,
+                          children: List.generate(documents.length, (index) {
+                            return _buildTile(context, documents[index]);
+                          }),
+                        ),
+                  const SizedBox(height: 30),
+                ],
+              ),
+            ),
+
+            // Footer sin padding
             const AppFooter(),
           ],
         ),
@@ -99,7 +110,9 @@ class _AlbumViewState extends State<AlbumView> {
         child: GestureDetector(
           onTap: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => DocumentDetailView(document: doc)),
+            MaterialPageRoute(
+              builder: (_) => DocumentDetailView(document: doc),
+            ),
           ),
           child: Transform.scale(
             scale: isHovered ? 1.03 : 1.0,
@@ -110,7 +123,9 @@ class _AlbumViewState extends State<AlbumView> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
-                boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 6)],
+                boxShadow: const [
+                  BoxShadow(color: Colors.black12, blurRadius: 6)
+                ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,14 +140,16 @@ class _AlbumViewState extends State<AlbumView> {
                       errorBuilder: (_, __, ___) => Container(
                         height: 100,
                         color: Colors.grey[300],
-                        child: const Center(child: Icon(Icons.broken_image)),
+                        child:
+                            const Center(child: Icon(Icons.broken_image)),
                       ),
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     doc['title'],
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                   const SizedBox(height: 4),
                   AnimatedCrossFade(
@@ -140,14 +157,17 @@ class _AlbumViewState extends State<AlbumView> {
                       doc['summary'],
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(color: Colors.black54, fontSize: 12),
+                      style: const TextStyle(
+                          color: Colors.black54, fontSize: 12),
                     ),
                     secondChild: Text(
                       doc['summary'],
-                      style: const TextStyle(color: Colors.black87, fontSize: 12),
+                      style: const TextStyle(
+                          color: Colors.black87, fontSize: 12),
                     ),
-                    crossFadeState:
-                        isHovered ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                    crossFadeState: isHovered
+                        ? CrossFadeState.showSecond
+                        : CrossFadeState.showFirst,
                     duration: const Duration(milliseconds: 200),
                   ),
                   const SizedBox(height: 8),

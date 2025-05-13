@@ -46,211 +46,222 @@ class _ProfileViewState extends State<ProfileView> {
 
     return Scaffold(
       appBar: AppNavbar(),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: horizontalPadding,
-          vertical: verticalPadding,
-        ),
-        child: ListView(
+      body: SingleChildScrollView(
+        child: Column(
           children: [
+            // Header fuera del padding
             AppHeader(
-              imagePath: 'https://images.unsplash.com/photo-1650633908245-f0b552e8f240?q=80&w=1933&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              imagePath:
+                  'https://images.unsplash.com/photo-1650633908245-f0b552e8f240?q=80&w=1933&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
               title: 'Perfil',
               subtitle: 'Gestiona tu información',
             ),
-            const SizedBox(height: 20),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  children: [
-                    const CircleAvatar(
-                      radius: 70,
-                      backgroundColor: Colors.grey,
-                      child: Icon(
-                        Icons.photo_camera,
-                        size: 30,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      user?.displayName ?? 'Usuario',
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(user?.email ?? 'usuario@email.com'),
-                    const SizedBox(height: 10),
-                    TextButton(
-                      onPressed: () {
-                        // Acción de eliminar cuenta
-                      },
-                      child: const Text(
-                        'Eliminar Cuenta',
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    MaterialButton(
-                      color: Colors.blueAccent,
-                      child: const Text(
-                        'Cerrar Sesión',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        await widget.auth.signOut();
-                        if (context.mounted) {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                            AppRoutes.preHome,
-                            (route) => false,
-                          );
-                        }
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(width: 30),
-                Expanded(
-                  child: Column(
+
+            // Contenido con padding
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: horizontalPadding,
+                vertical: verticalPadding,
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Información personal',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
+                      Column(
                         children: [
-                          Expanded(
-                            child: _buildTextField(
-                              label: 'Nombres',
-                              controller: nameController,
+                          const CircleAvatar(
+                            radius: 70,
+                            backgroundColor: Colors.grey,
+                            child: Icon(
+                              Icons.photo_camera,
+                              size: 30,
+                              color: Colors.white,
                             ),
                           ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: _buildTextField(
-                              label: 'Apellidos',
-                              controller: lastNameController,
+                          const SizedBox(height: 10),
+                          Text(
+                            user?.displayName ?? 'Usuario',
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(user?.email ?? 'usuario@email.com'),
+                          const SizedBox(height: 10),
+                          TextButton(
+                            onPressed: () {
+                              // Acción de eliminar cuenta
+                            },
+                            child: const Text(
+                              'Eliminar Cuenta',
+                              style: TextStyle(color: Colors.red),
                             ),
+                          ),
+                          const SizedBox(height: 10),
+                          MaterialButton(
+                            color: Colors.blueAccent,
+                            child: const Text(
+                              'Cerrar Sesión',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPressed: () async {
+                              await widget.auth.signOut();
+                              if (context.mounted) {
+                                Navigator.of(context)
+                                    .pushNamedAndRemoveUntil(
+                                  AppRoutes.preHome,
+                                  (route) => false,
+                                );
+                              }
+                            },
                           ),
                         ],
                       ),
-                      const SizedBox(height: 10),
-                      _buildTextField(
-                        label: 'Usuario',
-                        controller: usernameController,
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
+                      const SizedBox(width: 30),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Información personal',
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton<String>(
-                                value: selectedCode,
-                                items: countries.map((country) {
-                                  return DropdownMenuItem<String>(
-                                    value: country['code'],
-                                    child: Row(
-                                      children: [
-                                        Image.asset(
-                                          country['flag']!,
-                                          width: 24,
-                                          height: 24,
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Text(
-                                          '${country['name']} ${country['code']}',
-                                        ),
-                                      ],
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: _buildTextField(
+                                    label: 'Nombres',
+                                    controller: nameController,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: _buildTextField(
+                                    label: 'Apellidos',
+                                    controller: lastNameController,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            _buildTextField(
+                              label: 'Usuario',
+                              controller: usernameController,
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton<String>(
+                                      value: selectedCode,
+                                      items: countries.map((country) {
+                                        return DropdownMenuItem<String>(
+                                          value: country['code'],
+                                          child: Row(
+                                            children: [
+                                              Image.asset(
+                                                country['flag']!,
+                                                width: 24,
+                                                height: 24,
+                                              ),
+                                              const SizedBox(width: 8),
+                                              Text(
+                                                  '${country['name']} ${country['code']}'),
+                                            ],
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        final country = countries.firstWhere(
+                                            (c) => c['code'] == value);
+                                        setState(() {
+                                          selectedCode = value!;
+                                          selectedFlag = country['flag']!;
+                                          selectedCountry = country['name']!;
+                                        });
+                                      },
                                     ),
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  final country = countries.firstWhere(
-                                    (c) => c['code'] == value,
-                                  );
-                                  setState(() {
-                                    selectedCode = value!;
-                                    selectedFlag = country['flag']!;
-                                    selectedCountry = country['name']!;
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: _buildTextField(
-                              label: 'Teléfono',
-                              controller: phoneController,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      const Text(
-                        'Cuenta',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 10),
-                      _buildTextField(
-                        label: 'Email',
-                        controller: emailController,
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _buildTextField(
-                              label: 'Anterior contraseña',
-                              controller: oldPasswordController,
-                              obscureText: obscureOldPassword,
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  obscureOldPassword
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                                  ),
                                 ),
-                                onPressed: () {
-                                  setState(() {
-                                    obscureOldPassword = !obscureOldPassword;
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: _buildTextField(
-                              label: 'Nueva contraseña',
-                              controller: newPasswordController,
-                              obscureText: obscureNewPassword,
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  obscureNewPassword
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: _buildTextField(
+                                    label: 'Teléfono',
+                                    controller: phoneController,
+                                  ),
                                 ),
-                                onPressed: () {
-                                  setState(() {
-                                    obscureNewPassword = !obscureNewPassword;
-                                  });
-                                },
-                              ),
+                              ],
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 20),
+                            const Text(
+                              'Cuenta',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 10),
+                            _buildTextField(
+                              label: 'Email',
+                              controller: emailController,
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: _buildTextField(
+                                    label: 'Anterior contraseña',
+                                    controller: oldPasswordController,
+                                    obscureText: obscureOldPassword,
+                                    suffixIcon: IconButton(
+                                      icon: Icon(obscureOldPassword
+                                          ? Icons.visibility
+                                          : Icons.visibility_off),
+                                      onPressed: () {
+                                        setState(() {
+                                          obscureOldPassword =
+                                              !obscureOldPassword;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: _buildTextField(
+                                    label: 'Nueva contraseña',
+                                    controller: newPasswordController,
+                                    obscureText: obscureNewPassword,
+                                    suffixIcon: IconButton(
+                                      icon: Icon(obscureNewPassword
+                                          ? Icons.visibility
+                                          : Icons.visibility_off),
+                                      onPressed: () {
+                                        setState(() {
+                                          obscureNewPassword =
+                                              !obscureNewPassword;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                ),
-              ],
+                  const SizedBox(height: 40),
+                ],
+              ),
             ),
-            const SizedBox(height: 40),
+
+            // Footer fuera del padding
             const AppFooter(),
           ],
         ),
@@ -258,7 +269,6 @@ class _ProfileViewState extends State<ProfileView> {
     );
   }
 
-  /// Widget reutilizable para campos de texto
   Widget _buildTextField({
     required String label,
     bool obscureText = false,

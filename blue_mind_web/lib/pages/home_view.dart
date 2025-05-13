@@ -17,14 +17,12 @@ class HomeView extends StatelessWidget {
 
     return Scaffold(
       appBar: const AppNavbar(),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding,
-              vertical: verticalPadding,
-            ),
-            child: AppHeader(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Header fuera del padding
+            AppHeader(
               imagePaths: [
                 'https://images.unsplash.com/photo-1568430462989-44163eb1752f?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
                 'https://images.unsplash.com/photo-1618578906891-86e569eefe7e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -36,20 +34,32 @@ class HomeView extends StatelessWidget {
               title: '¡Hola!',
               subtitle: 'Bienvenida, ${auth.currentUser?.email ?? 'Usuario'}',
             ),
-          ),
-          const SizedBox(height: 20),
-          Center(
-            child: Text(
-              'Usuario: ${auth.currentUser?.email ?? 'No identificado'}',
-              style: const TextStyle(fontSize: 18),
+
+            // Contenido con padding
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: horizontalPadding,
+                vertical: verticalPadding,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+                  Center(
+                    child: Text(
+                      'Usuario: ${auth.currentUser?.email ?? 'No identificado'}',
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                  ),
+                  const SizedBox(height: 50),
+                ],
+              ),
             ),
-          ),
-          const Expanded(child: SizedBox()),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-            child: const AppFooter(),
-          ),
-        ],
+
+            // Footer fuera del padding
+            const AppFooter(),
+          ],
+        ),
       ),
     );
   }

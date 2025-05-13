@@ -13,35 +13,41 @@ class MapView extends StatelessWidget {
 
     return Scaffold(
       appBar: const AppNavbar(),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding,
-              vertical: verticalPadding,
-            ),
-            child: AppHeader(
-              imagePath: 'https://images.unsplash.com/photo-1665150922942-9f48fc21005f?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Header sin padding
+            AppHeader(
+              imagePath:
+                  'https://images.unsplash.com/photo-1665150922942-9f48fc21005f?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
               title: 'Mapa',
               subtitle: 'Explora la ubicación',
             ),
-          ),
-          const SizedBox(height: 20),
-          const Center(
-            child: Text(
-              'Contenido de Mapa',
-              style: TextStyle(fontSize: 18),
+
+            // Contenido con padding
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: horizontalPadding,
+                vertical: verticalPadding,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  SizedBox(height: 20),
+                  Text(
+                    'Contenido de Mapa',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(height: 50),
+                ],
+              ),
             ),
-          ),
-          const Spacer(), // Para empujar el footer hacia abajo si es necesario
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding,
-              vertical: verticalPadding,
-            ),
-            child: const AppFooter(), // Llamamos el footer aquí
-          ),
-        ],
+
+            // Footer sin padding
+            const AppFooter(),
+          ],
+        ),
       ),
     );
   }

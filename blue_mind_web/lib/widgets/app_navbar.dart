@@ -37,8 +37,8 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
               ClipOval(
                 child: Image.asset(
                   'assets/logoW.png',
-                  height: 40,
-                  width: 40,
+                  height: 70,
+                  width: 70,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -78,6 +78,7 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
                           _buildNavLink('Mapa\nInteractivo', AppRoutes.map),
                           const SizedBox(width: 10),
                           _buildSearchBox(),
+                          const SizedBox(width: 10),
                           _buildProfileButton(),
                           const SizedBox(width: 10),
                         ],
@@ -104,7 +105,7 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
 
   Widget _buildSearchBox() {
     return SizedBox(
-      width: 180,
+      width: 280,
       height: 35,
       child: TextField(
         decoration: InputDecoration(
