@@ -1,77 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../routes.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_typography.dart';
 import '../theme/theme_controller.dart';
+import '../widgets/app_navbar_prehome.dart';
 
 class PreHomeScreen extends StatelessWidget {
+  PreHomeScreen({super.key});
+
+  final ThemeController themeController = Get.find();
+
   @override
   Widget build(BuildContext context) {
-    final ThemeController themeController = Get.find();
-
     return Obx(() {
       final bool isDarkMode = themeController.isDarkMode.value;
+
       return Scaffold(
         backgroundColor: isDarkMode
             ? AppColors.backgroundColorDark
             : AppColors.backgroundColorLight,
-        appBar: AppBar(
-          backgroundColor:
-              isDarkMode ? AppColors.primaryColorDark : AppColors.borderLight,
-          elevation: 0,
-          title: Row(
+        appBar: const AppNavbarPreHome(),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ClipOval(
-                child: Image(image: AssetImage('assets/logoW-invert.png',
-                ),
-                  height: 70,
-                  width: 70,
-                  fit: BoxFit.cover,
+              Text(
+                'Bienvenido a BlueMind',
+                style: AppTypography.h1TitulosPrincipales.copyWith(
+                  color: isDarkMode
+                      ? AppColors.textColorDark
+                      : AppColors.textColorLight,
                 ),
               ),
-              const SizedBox(width: 8),
-              Flexible(
-                child: Text(
-                  'BlueMind',
-                  style: AppTypography.blueMindtitle,
-                  overflow: TextOverflow.ellipsis,
+              const SizedBox(height: 20),
+              Text(
+                'Explora nuestro contenido educativo y descubre la biodiversidad',
+                style: AppTypography.parrafos.copyWith(
+                  color: isDarkMode
+                      ? AppColors.textColorDark
+                      : AppColors.textColorLight,
                 ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 40),
+              ElevatedButton(
+                onPressed: () => Get.toNamed('/home'),
+                child: const Text('Entrar como invitado'),
               ),
             ],
           ),
-          actions: [
-            IconButton(
-              icon: Icon(
-                isDarkMode ? Icons.dark_mode : Icons.light_mode,
-                color: isDarkMode
-                    ? AppColors.textColorDark
-                    : AppColors.textColorLight,
-              ),
-              onPressed: themeController.toggleTheme,
-            ),
-            TextButton(
-              onPressed: () => Get.toNamed(AppRoutes.register),
-              child: Text(
-                "Registrarse",
-                style: TextStyle(
-                    color: isDarkMode
-                        ? AppColors.textColorDark
-                        : AppColors.textColorLight),
-              ),
-            ),
-            TextButton(
-              onPressed: () => Get.toNamed(AppRoutes.login),
-              child: Text(
-                "Iniciar Sesión",
-                style: TextStyle(
-                    color: isDarkMode
-                        ? AppColors.textColorDark
-                        : AppColors.textColorLight),
-              ),
-            ),
-            const SizedBox(width: 10),
-          ],
         ),
       );
     });

@@ -33,6 +33,7 @@ dependencies:
   http: 1.3.0
   flutter_staggered_grid_view: ^0.7.0
   google_sign_in: ^5.4.2
+  cached_network_image: ^3.2.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -77,6 +78,63 @@ flutter:
      - assets/flags/cl.png
      - assets/flags/mx.png
      - assets/flags/pe.png
+     - assets/album/Extinta(EX)/delfinBaijiMain.jpg
+     - assets/album/Extinta(EX)/delfinBaiji1.jpg
+     - assets/album/Extinta(EX)/delfinBaiji2.jpg
+     - assets/album/Extinta(EX)/delfinBaiji3.jpg
+     - assets/album/Extinta(EX)/pastinachusSephenMain.jpg
+     - assets/album/Extinta(EX)/pastinachusSephen1.jpg
+     - assets/album/Extinta(EX)/pastinachusSephen2.jpg
+     - assets/album/Extinta(EX)/pastinachusSephen3.jpg
+     - assets/album/Extinta(EX)/elliptioJayensisMain.jpg
+     - assets/album/Extinta(EX)/elliptioJayensis1.jpg
+     - assets/album/Extinta(EX)/elliptioJayensis2.jpg
+     - assets/album/Extinta(EX)/elliptioJayensis3.jpg
+     - assets/album/Extinta(EX)/chelonoidisAbingdoniiMain.jpg
+     - assets/album/Extinta(EX)/chelonoidisAbingdonii1.jpg
+     - assets/album/Extinta(EX)/chelonoidisAbingdonii2.jpg
+     - assets/album/Extinta(EX)/chelonoidisAbingdonii3.jpg
+     - assets/album/Extinta(EX)/stomolophusNecopsisMain.jpg
+     - assets/album/Extinta(EX)/stomolophusNecopsis1.jpg
+     - assets/album/Extinta(EX)/stomolophusNecopsis2.jpg
+     - assets/album/Extinta(EX)/stomolophusNecopsis3.jpg
+     - assets/album/Extinta(EX)/oculinaVaricosaMain.jpg
+     - assets/album/Extinta(EX)/oculinaVaricosa1.jpg
+     - assets/album/Extinta(EX)/oculinaVaricosa2.jpg
+     - assets/album/Extinta(EX)/oculinaVaricosa3.jpg
+     - assets/album/Extinta en estado silvestre (EW)/partulaFabaMain.jpg
+     - assets/album/Extinta en estado silvestre (EW)/partulaFaba1.jpg
+     - assets/album/Extinta en estado silvestre (EW)/partulaFaba2.jpg
+     - assets/album/Extinta en estado silvestre (EW)/coralAcroporaSuharsonoiMain.jpg
+     - assets/album/Extinta en estado silvestre (EW)/coralAcroporaSuharsonoi1.jpg
+     - assets/album/Extinta en estado silvestre (EW)/coralAcroporaSuharsonoi2.jpg
+     - assets/album/Extinta en estado silvestre (EW)/coralAcroporaSuharsonoi3.jpg
+     - assets/album/En peligro crítico (CR)/vaquitaMarinaMain.jpg
+     - assets/album/En peligro crítico (CR)/vaquitaMarina1.jpg
+     - assets/album/En peligro crítico (CR)/vaquitaMarina2.jpg
+     - assets/album/En peligro crítico (CR)/focaMonjeMediterráneoMain.jpg
+     - assets/album/En peligro crítico (CR)/focaMonjeMediterráneo1.jpg
+     - assets/album/En peligro crítico (CR)/focaMonjeMediterráneo2.jpg
+     - assets/album/En peligro crítico (CR)/focaMonjeMediterráneo3.jpg
+     - assets/album/En peligro crítico (CR)/lipotesVexilliferMain.jpg
+     - assets/album/En peligro crítico (CR)/lipotesVexillifer1.jpg
+     - assets/album/En peligro crítico (CR)/lipotesVexillifer2.jpg
+     - assets/album/En peligro crítico (CR)/tortugaCareyMain.jpg
+     - assets/album/En peligro crítico (CR)/tortugaCarey1.jpg
+     - assets/album/En peligro crítico (CR)/tortugaCarey2.jpg
+     - assets/album/En peligro crítico (CR)/tortugaCarey3.jpg
+     - assets/album/En peligro crítico (CR)/atúnRojoAtlánticoMain.jpg
+     - assets/album/En peligro crítico (CR)/atúnRojoAtlántico1.jpg
+     - assets/album/En peligro crítico (CR)/coralCuernoAlceMain.jpg
+     - assets/album/En peligro crítico (CR)/coralCuernoAlce1.jpg
+     - assets/album/En peligro crítico (CR)/coralCuernoAlce2.jpg
+     - assets/album/En peligro crítico (CR)/coralCuernoAlce3.jpg
+     
+     
+
+
+
+
      #- assets/libreria.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

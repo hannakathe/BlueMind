@@ -13,7 +13,7 @@ class AppTypography {
 
   static final TextStyle h1TitulosPrincipales = GoogleFonts.poppins(
     fontSize: 32,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w600,
     color: AppColors.textColorLight,
   );
 
