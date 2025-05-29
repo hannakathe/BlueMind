@@ -1,0 +1,94 @@
+{
+  "uuid": "59632079-b82e-488d-bcfc-188845151a34",
+  "lastMigration": 33,
+  "name": "Species1",
+  "endpointPrefix": "home",
+  "latency": 0,
+  "port": 3004,
+  "hostname": "0.0.0.0",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "794bf609-d6f3-4f20-8ab8-17e6b0aefd77",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "species1",
+      "responses": [
+        {
+          "uuid": "0b08cd45-4003-4a93-8550-223fc1f5f5a0",
+          "body": "[\r\n    {\r\n        \"title\": \"Delfín Nariz de Botella\",\r\n        \"image\": \"https://cdn.pixabay.com/photo/2014/07/08/12/39/dolphin-386744_1280.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Delfín del Baiji\",\r\n        \"image\": \"assets/album/Extinta(EX)/delfinBaijiMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Raya del Mar de Java\",\r\n        \"image\": \"assets/album/Extinta(EX)/pastinachusSephenMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Mejillón de Alabama\",\r\n        \"image\": \"assets/album/Extinta(EX)/elliptioJayensisMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Tortuga gigante de la isla Pinta\",\r\n        \"image\": \"assets/album/Extinta(EX)/chelonoidisAbingdoniiMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Medusa Stomolophus necopsis\",\r\n        \"image\": \"assets/album/Extinta(EX)/stomolophusNecopsisMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Coral Oculina varicosa\",\r\n        \"image\": \"assets/album/Extinta(EX)/oculinaVaricosaMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Caracol marino Partula faba\",\r\n        \"image\": \"assets/album/Extinta en estado silvestre (EW)/partulaFabaMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Coral Acropora suharsonoi\",\r\n        \"image\": \"assets/album/Extinta en estado silvestre (EW)/coralAcroporaSuharsonoiMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Vaquita marina\",\r\n        \"image\": \"assets/album/En peligro crítico (CR)/vaquitaMarinaMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Foca monje del Mediterráneo\",\r\n        \"image\": \"assets/album/En peligro crítico (CR)/focaMonjeMediterráneoMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Delfín del río Yangtsé\",\r\n        \"image\": \"assets/album/En peligro crítico (CR)/lipotesVexilliferMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Tortuga carey\",\r\n        \"image\": \"assets/album/En peligro crítico (CR)/tortugaCareyMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Atún rojo del Atlántico\",\r\n        \"image\": \"assets/album/En peligro crítico (CR)/atúnRojoAtlánticoMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Coral cuerno de alce\",\r\n        \"image\": \"assets/album/En peligro crítico (CR)/coralCuernoAlceMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Caballito de mar de Knysna\",\r\n        \"image\": \"assets/album/En peligro crítico (CR)/caballitoMarKnysnaMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Pez sierra de dientes grandes\",\r\n        \"image\": \"assets/album/En peligro crítico (CR)/pezSierraDientesGrandesMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Esturión del Adriático\",\r\n        \"image\": \"assets/album/En peligro crítico (CR)/esturiónAdriáticoMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Coral pilar\",\r\n        \"image\": \"assets/album/En peligro crítico (CR)/coralPilarMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Almeja gigante del Pacífico Occidental\",\r\n        \"image\": \"assets/album/En peligro crítico (CR)/tridacnaGigasMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Langosta de arrecife antillana\",\r\n        \"image\": \"assets/album/En peligro crítico (CR)/panulirusVersicolorMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Ballena franca del Atlántico Norte\",\r\n        \"image\": \"assets/album/En peligro (EN)/eubalaenaGlacialisMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Orca residente del sur\",\r\n        \"image\": \"assets/album/En peligro (EN)/orcinusOrcaMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Tiburón martillo\",\r\n        \"image\": \"assets/album/En peligro (EN)/tiburonMartilloMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Pingüino de Galápagos\",\r\n        \"image\": \"assets/album/En peligro (EN)/pingüinoGalápagosMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Coral estrella montañosa\",\r\n        \"image\": \"assets/album/En peligro (EN)/montastraeaFaveolataMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Dugongo\",\r\n        \"image\": \"assets/album/En peligro (EN)/dugongoMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Langosta de Florida\",\r\n        \"image\": \"assets/album/En peligro (EN)/langostaFloridaMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Calamar vampiro\",\r\n        \"image\": \"assets/album/En peligro (EN)/calamarVampiroMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Tortuga olivácea\",\r\n        \"image\": \"assets/album/En peligro (EN)/tortugaOliváceaMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Pingüino de penacho amarillo\",\r\n        \"image\": \"assets/album/En peligro (EN)/pingüinoPenachoAmarilloMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Caballito de mar de nariz corta\",\r\n        \"image\": \"assets/album/En peligro (EN)/caballitoMarNarizCortaMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Mejillón de agua dulce de China\",\r\n        \"image\": \"assets/album/En peligro (EN)/mejillónAguaDulceChinaMain.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Medusa caja australiana\",\r\n        \"image\": \"assets/album/En peligro (EN)/medusaCajaAustralianaMain.jpg\"\r\n    }\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "794bf609-d6f3-4f20-8ab8-17e6b0aefd77"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}

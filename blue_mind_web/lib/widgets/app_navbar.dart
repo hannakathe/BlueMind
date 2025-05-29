@@ -101,11 +101,6 @@ class AppNavbar extends StatelessWidget implements PreferredSizeWidget {
                                 AppRoutes.album,
                                 textColor,
                               ),
-                              _buildNavLink(
-                                'Mapa\nInteractivo',
-                                AppRoutes.map,
-                                textColor,
-                              ),
                               const SizedBox(width: 10),
                               _buildSearchBox(isDarkMode),
                               const SizedBox(width: 10),
@@ -221,9 +216,11 @@ class AppSidebar extends StatelessWidget {
             'auth': FirebaseAuth.instance,
           }),
           _buildDrawerItem(context, 'Blog', AppRoutes.blog),
+          const Divider(height: 15),
           _buildDrawerItem(context, 'Recursos Educativos', AppRoutes.library),
+          const Divider(height: 15),
           _buildDrawerItem(context, 'Álbum de Especies', AppRoutes.album),
-          _buildDrawerItem(context, 'Mapa Interactivo', AppRoutes.map),
+          const Divider(height: 15),
           _buildDrawerItem(context, 'Perfil', AppRoutes.profile, {
             'auth': FirebaseAuth.instance,
           }),
@@ -237,7 +234,8 @@ class AppSidebar extends StatelessWidget {
     String title,
     String route, [
     Map<String, dynamic>? arguments,
-  ]) {
+  ]) 
+  {
     return ListTile(
       title: Text(title, style: AppTypography.parrafos),
       onTap: () {
